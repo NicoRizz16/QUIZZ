@@ -94,3 +94,25 @@ assetic:
       - SwiftmailerBundle
       - AsseticBundle
       - FOSUserBundle
+
+
+# VichUploader Configuration
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        qcm_images:
+            uri_prefix: uploads/images/qcm
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/qcm'
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+            namer: vich_uploader.namer_origname
+
+        profile_images:
+            uri_prefix: uploads/images/profile
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/profile'
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+            namer: vich_uploader.namer_origname
