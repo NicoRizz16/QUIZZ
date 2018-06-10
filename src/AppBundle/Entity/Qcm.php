@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="qcm")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\QcmRepository")
+ * @Vich\Uploadable
  */
 class Qcm
 {

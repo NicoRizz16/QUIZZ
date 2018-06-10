@@ -19,4 +19,5 @@
 .idea/
 .idea/*
 /web/uploads/*
+/web/tmp/*
 workspace.xml

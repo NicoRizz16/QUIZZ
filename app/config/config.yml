@@ -107,7 +107,7 @@ vich_uploader:
             inject_on_load:     true
             delete_on_update:   true
             delete_on_remove:   true
-            namer: vich_uploader.namer_origname
+            namer: vich_uploader.namer_uniqid
 
         profile_images:
             uri_prefix: uploads/images/profile
@@ -115,4 +115,4 @@ vich_uploader:
             inject_on_load:     true
             delete_on_update:   true
             delete_on_remove:   true
-            namer: vich_uploader.namer_origname
+            namer: vich_uploader.namer_uniqid
