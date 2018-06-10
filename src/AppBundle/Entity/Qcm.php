@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Qcm
@@ -20,6 +23,11 @@ class Qcm
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     */
+    private $author;
 
     /**
      * @var \DateTime
@@ -127,11 +135,61 @@ class Qcm
     private $countdown;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="qcms")
+     * @ORM\JoinTable(name="qcms_categories",
+     *      joinColumns={@ORM\JoinColumn(name="qcm_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
+     *  )
      */
-    private $type;
+    private $categories;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="qcm_images", fileNameProperty="questionImageName")
+     * @Assert\Image()
+     *
+     * @var File
+     */
+    private $questionImageFile;
+
+    /**
+     * @ORM\Column(name="question_image_name", type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $questionImageName;
+
+    /**
+     * @ORM\Column(name="question_image_updated_date", type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $questionImageUpdatedAt;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="qcm_images", fileNameProperty="commentImageName")
+     * @Assert\Image()
+     *
+     * @var File
+     */
+    private $commentImageFile;
+
+    /**
+     * @ORM\Column(name="comment_image_name", type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $commentImageName;
+
+    /**
+     * @ORM\Column(name="comment_image_updated_date", type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $commentImageUpdatedAt;
 
 
 
@@ -512,27 +570,230 @@ class Qcm
     }
 
     /**
-     * Set type
+     * Set author
      *
-     * @param integer $type
+     * @param \AppBundle\Entity\User $author
      *
      * @return Qcm
      */
-    public function setType($type)
+    public function setAuthor(\AppBundle\Entity\User $author = null)
     {
-        $this->type = $type;
+        $this->author = $author;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get author
      *
-     * @return int
+     * @return \AppBundle\Entity\User
      */
-    public function getType()
+    public function getAuthor()
     {
-        return $this->type;
+        return $this->author;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Qcm
+     */
+    public function addCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Category $category
+     */
+    public function removeCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Has category
+     *
+     * @param \AppBundle\Entity\Category $category
+     * @return boolean
+     */
+    public function hasCategory(Category $category)
+    {
+        foreach ($this->categories as $item) {
+            if($item == $category){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Qcm
+     */
+    public function setQuestionImageFile(File $image = null)
+    {
+        $this->questionImageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->questionImageUpdatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getQuestionImageFile()
+    {
+        return $this->questionImageFile;
+    }
+
+    /**
+     * @param string $imageName
+     *
+     * @return Qcm
+     */
+    public function setQuestionImageName($imageName)
+    {
+        $this->questionImageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getQuestionImageName()
+    {
+        return $this->questionImageName;
+    }
+
+    /**
+     * Set questionImageUpdatedAt
+     *
+     * @param \DateTime $imageUpdatedAt
+     *
+     * @return Qcm
+     */
+    public function setQuestionImageUpdatedAt($imageUpdatedAt)
+    {
+        $this->questionImageUpdatedAt = $imageUpdatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get questionImageUpdatedAt
+     *
+     * @return \DateTime
+     */
+    public function getQuestionImageUpdatedAt()
+    {
+        return $this->questionImageUpdatedAt;
+    }
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Qcm
+     */
+    public function setCommentImageFile(File $image = null)
+    {
+        $this->commentImageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->commentImageUpdatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getCommentImageFile()
+    {
+        return $this->commentImageFile;
+    }
+
+    /**
+     * @param string $imageName
+     *
+     * @return Qcm
+     */
+    public function setCommentImageName($imageName)
+    {
+        $this->commentImageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCommentImageName()
+    {
+        return $this->commentImageName;
+    }
+
+    /**
+     * Set commentImageUpdatedAt
+     *
+     * @param \DateTime $imageUpdatedAt
+     *
+     * @return Qcm
+     */
+    public function setCommentImageUpdatedAt($imageUpdatedAt)
+    {
+        $this->commentImageUpdatedAt = $imageUpdatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get commentImageUpdatedAt
+     *
+     * @return \DateTime
+     */
+    public function getCommentImageUpdatedAt()
+    {
+        return $this->commentImageUpdatedAt;
     }
 }
 
