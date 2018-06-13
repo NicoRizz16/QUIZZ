@@ -1,0 +1,53 @@
+{% extends 'visitor/base.html.twig' %}
+
+
+
+{% block body %}
+
+    <h1>Page Utilisateur</h1>
+
+    <p>Bienvenue {{ app.user.username }}</p><br/>
+
+    <p> <a href="{{ path('fos_user_security_logout') }}">Se Déconnecter</a></p>
+
+        <div class="row">
+            <div class="col-sm-3 profilMenu">
+                <div class="titreMenuProfil">
+                    <h2>TITRE EXEMPLE</h2>
+
+                </div>
+                <div class="menuProfil">
+                    <ul>
+                        <li><a class="class1" href="">exemple1</a></li>
+                        <li><a class="class2" href="">exemple2</a></li>
+                        <li><a class="class3" href="">exemple3</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-sm-9 mainProfil">
+                <a href="https://www.facebook.com/groups/143719076291913/" target="_blank"><button type="button" class="btn btn-fb pull-right"><i class="fa fa-facebook left"></i>Communauté Facebook</button></a>
+                <div>
+                    <h4 class="card-title"></h4>
+
+                </div>
+                <div class="tab-content">
+
+                        <table class="table">
+                            <thead class="grey lighten-5 lighteen-4">
+                            <tr>
+                                <th>QCM</th>
+                                <th>Classement</th>
+                                <th>Points</th>
+                                <th>Nombre de QCM</th>
+                                <th>État</th>
+                            </tr>
+                            </thead>
+
+                    </table>
+
+            </div>
+        </div>
+
+
+{% endblock %}
