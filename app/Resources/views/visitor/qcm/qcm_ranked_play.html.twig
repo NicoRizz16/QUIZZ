@@ -1,0 +1,102 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+    <h1> QCM Classé </h1>
+
+    <div id="qcmContainer">
+        {%  if corrected is empty %}
+            {% include 'visitor/qcm/_qcm.html.twig' with {'qcm': qcm} %}
+        {% else %}
+            {% include 'visitor/qcm/_qcm_correction.html.twig' with {'qcm': qcm} %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            $('#answer_qcm_form_veracityA').prop('checked', false);
+            $('#answer_qcm_form_veracityB').prop('checked', false);
+            $('#answer_qcm_form_veracityC').prop('checked', false);
+            $('#answer_qcm_form_veracityD').prop('checked', false);
+            $('#answer_qcm_form_veracityE').prop('checked', false);
+            var answerA = false;
+            var answerB = false;
+            var answerC = false;
+            var answerD = false;
+            var answerE = false;
+
+            $("#answer_qcm_form_veracityA").change( function () {
+                $(this).is(":checked") ? answerA = true : answerA = false;
+            });
+            $("#answer_qcm_form_veracityB").change( function () {
+                $(this).is(":checked") ? answerB = true : answerB = false;
+            });
+            $("#answer_qcm_form_veracityC").change( function () {
+                $(this).is(":checked") ? answerC = true : answerC = false;
+            });
+            $("#answer_qcm_form_veracityD").change( function () {
+                $(this).is(":checked") ? answerD = true : answerD = false;
+            });
+            $("#answer_qcm_form_veracityE").change( function () {
+                $(this).is(":checked") ? answerE = true : answerE = false;
+            });
+
+            // ================================================
+            // REQUETE AJAX CORRECTION
+            // ================================================
+            $("#answer_qcm_form_button").click(function (e) {
+                e.preventDefault();
+                triggerCorrection();
+                $('#qcmContainer').html('<i class=\"fa fa-spinner fa-spin\" style=\"font-size:4em\"></i>');
+            });
+
+            function triggerCorrection(){
+                clearInterval(countDownInterval);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('ajax_ranked_qcm_correction') }}',
+                    data: 'answerA=' + answerA + '&answerB=' + answerB + '&answerC=' + answerC + '&answerD=' + answerD + '&answerE=' + answerE
+                })
+                    .done(function (data, textStatus, jqXHR) {
+                        if (typeof jqXHR.responseJSON !== 'undefined') {
+                            if (jqXHR.responseJSON.hasOwnProperty('response')) {
+                                $('#qcmContainer').html(jqXHR.responseJSON.response);
+                                initializeListeners();
+                            }
+                        } else {
+                            alert('Error');
+                        }
+                    })
+                    .fail(function () {
+                        alert('Failed');
+                    });
+            }
+
+            // ================================================
+            // COUNTDOWN
+            // ================================================
+            {% if corrected is empty %}
+                var countDown = Number({{ countDown }});
+                var firstLoop = true;
+                var countDownInterval = setInterval(function () {
+                    if(firstLoop){
+                        firstLoop = false;
+                    } else {
+                        countDown = countDown - 1;
+                    }
+                    $("#countDownContainer").html(countDown);
+                    if(countDown == 0){
+                        triggerCorrection();
+                        $('#qcmContainer').html('<i class=\"fa fa-spinner fa-spin\" style=\"font-size:4em\"></i>');
+                    }
+                }, 1000);
+            {% endif %}
+
+        });
+
+    </script>
+{% endblock %}
+

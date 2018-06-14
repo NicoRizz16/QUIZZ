@@ -29,16 +29,17 @@
 
 <body>
 
-
-    {% block body %}
-    {% endblock %}
+    <div class="container-fluid">
+        {% block body %}
+        {% endblock %}
+    </div>
 
 
     {# ============= SCRIPTS ============= #}
     {% block javascripts %}
 
         {% javascripts filter='?jsqueeze'
-        'js/jquery-2.2.3.min.js'
+        'js/jquery-3.1.1.min.js'
         'js/bootstrap.min.js'
         'js/mdb.min.js'
         'js/visitor/main.js'

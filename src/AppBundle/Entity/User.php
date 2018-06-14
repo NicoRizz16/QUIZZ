@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+    const MAX_RANKED_QCM_DAY = 5;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -33,11 +35,19 @@ class User extends BaseUser
      */
     private $lastRankedQcmDate;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="points", type="integer")
+     */
+    private $points;
+
     public function __construct()
     {
         parent::__construct();
         $this->setRankedQcmDoneToday(0);
         $this->setLastRankedQcmDate(new \DateTime());
+        $this->setPoints(0);
     }
 
     /**
@@ -86,5 +96,43 @@ class User extends BaseUser
     public function getLastRankedQcmDate()
     {
         return $this->lastRankedQcmDate;
+    }
+
+    public function isRankedQcmLeftToday()
+    {
+        $date = new \DateTime();
+        if($date->format('Ymd') == $this->getLastRankedQcmDate()->format('Ymd')){
+            if($this->getRankedQcmDoneToday() == User::MAX_RANKED_QCM_DAY){
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return User
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }
