@@ -33,7 +33,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1> QCM classés </h1>
-    <a href="{{ path('qcm_ranked_play') }}" class="btn btn-brown">Lancer un QCM classé</a>
+    <h1 class="main-title text-center"> QCM classés </h1>
+    <hr class="my-2">
+    <p class="section-description">Effectuez tous les jours vos QCM classés pour gagner des points et progresser dans le classement !</p>
+    <p class="text-center">
+        <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded btn-lg">Lancer un QCM classé</a>
+    </p>
 
 {% endblock %}

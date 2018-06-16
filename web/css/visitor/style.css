@@ -2,6 +2,14 @@
     margin-top: 75px;
 }
 
+#qcmTable th, #qcmTable td{
+    padding: 0.6rem;
+}
+
+.checkBoxTableCell{
+    width: 15px;
+}
+
 .forgottenAnswerCorrectionColor{
     background-color: #ffbb33;
     color: white;
@@ -24,4 +32,14 @@
     font-weight: bold;
     width: 5px;
     text-align: center;
+}
+
+th.forgottenAnswerCorrectionColor + td{
+    background-color: #ffeecc;
+}
+th.wrongAnswerCorrectionColor + td{
+    background-color: #ffcccc;
+}
+th.goodAnswerCorrectionColor + td{
+    background-color: #ccffe0;
 }

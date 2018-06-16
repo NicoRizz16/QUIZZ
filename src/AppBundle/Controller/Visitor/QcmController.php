@@ -35,7 +35,7 @@ class QcmController extends Controller
 
         if(!isset($qcmID)){ // Si pas de qcm en session => Alors jouer un nouveau qcm
 
-            if($user->isRankedQcmLeftToday()){ // Si il reste des qcm à faire pour l'utilisateur aujourd'hui
+            if(true){ // Si il reste des qcm à faire pour l'utilisateur aujourd'hui  HORS TEST : $user->isRankedQcmLeftToday()
                 // Générer 1 qcm aléatoirement parmi la base
                 $qcm = $this->getDoctrine()->getManager()->getRepository('AppBundle:Qcm')->getOneRandomPublishedQcm();
                 // Stocker qcm en session avec datetime du lancement
@@ -96,6 +96,8 @@ class QcmController extends Controller
     }
 
     private function correctRankedQcm(Request $request, $answerA = false, $answerB = false, $answerC = false, $answerD = false, $answerE = false){
+        sleep(1.5);// Effet de chargement de la correction
+
         $em = $this->getDoctrine()->getManager();
         // Calcul du score au QCM joué
         $score = $this->get('app.calculate_qcm_score')->calculateQcmScore($request->getSession()->get('qcmID'), $answerA, $answerB, $answerC, $answerD, $answerE);

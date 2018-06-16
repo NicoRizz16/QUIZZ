@@ -1,14 +1,14 @@
 {% extends 'visitor/base.html.twig' %}
 
 {% block body %}
-    <h1> QCM Classé </h1>
-
-    <div id="qcmContainer">
-        {%  if corrected is empty %}
-            {% include 'visitor/qcm/_qcm.html.twig' with {'qcm': qcm} %}
-        {% else %}
-            {% include 'visitor/qcm/_qcm_correction.html.twig' with {'qcm': qcm} %}
-        {% endif %}
+    <div class="col-md-8 offset-md-2 pt-2">
+        <div id="qcmContainer">
+            {%  if corrected is empty %}
+                {% include 'visitor/qcm/_qcm.html.twig' with {'qcm': qcm} %}
+            {% else %}
+                {% include 'visitor/qcm/_qcm_correction.html.twig' with {'qcm': qcm} %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 
@@ -49,7 +49,9 @@
             $("#answer_qcm_form_button").click(function (e) {
                 e.preventDefault();
                 triggerCorrection();
-                $('#qcmContainer').html('<i class=\"fa fa-spinner fa-spin\" style=\"font-size:4em\"></i>');
+                $('#qcmContainer').html('<h2 class="text-center pt-5">Correction du QCM en cours...</h2><div class="progress primary-color-dark">\n' +
+                    '    <div class="indeterminate"></div>\n' +
+                    '</div>');
             });
 
             function triggerCorrection(){
@@ -79,6 +81,7 @@
             // COUNTDOWN
             // ================================================
             {% if corrected is empty %}
+                var initialCountDown = Number({{ qcm.countdown }});
                 var countDown = Number({{ countDown }});
                 var firstLoop = true;
                 var countDownInterval = setInterval(function () {
@@ -87,13 +90,36 @@
                     } else {
                         countDown = countDown - 1;
                     }
-                    $("#countDownContainer").html(countDown);
+                    var countDownPercent = Math.round((countDown/initialCountDown)*100);
+                    $("#countDownProgressBar").css('width', countDownPercent+"%");
+                    updateCountDownColor(countDownPercent);
                     if(countDown == 0){
                         triggerCorrection();
-                        $('#qcmContainer').html('<i class=\"fa fa-spinner fa-spin\" style=\"font-size:4em\"></i>');
+                        $('#qcmContainer').html('<h2 class="text-center pt-5">Correction du QCM en cours...</h2><div class="progress primary-color-dark">\n' +
+                            '    <div class="indeterminate"></div>\n' +
+                            '</div>');
                     }
                 }, 1000);
             {% endif %}
+
+            function updateCountDownColor(countDownPercent)
+            {
+                $("#countDownProgressBar").removeClass("bg-success");
+                $("#countDownProgressBar").removeClass("bg-info");
+                $("#countDownProgressBar").removeClass("bg-warning");
+                $("#countDownProgressBar").removeClass("bg-danger");
+                if(countDownPercent > 74){
+                    $("#countDownProgressBar").addClass("bg-success");
+                }
+                else if(countDownPercent > 49){
+                    $("#countDownProgressBar").addClass("bg-info");
+                }
+                else if(countDownPercent > 24){
+                    $("#countDownProgressBar").addClass("bg-warning");
+                } else {
+                    $("#countDownProgressBar").addClass("bg-danger");
+                }
+            }
 
         });
 
