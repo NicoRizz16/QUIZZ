@@ -17,6 +17,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class QcmController extends Controller
 {
     /**
+     * @Route("/classe", name="qcm_ranked_home")
+     */
+    public function rankedQcmHomeAction(Request $request)
+    {
+        return $this->render('visitor/qcm/qcm_ranked_home.html.twig');
+    }
+
+    /**
      * @Route("/classe/jouer", name="qcm_ranked_play")
      */
     public function rankedQcmPlayAction(Request $request)

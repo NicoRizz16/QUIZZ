@@ -1,3 +1,7 @@
+#mainContainer{
+    margin-top: 75px;
+}
+
 .forgottenAnswerCorrectionColor{
     background-color: #ffbb33;
     color: white;

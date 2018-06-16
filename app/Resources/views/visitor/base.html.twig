@@ -29,7 +29,57 @@
 
 <body>
 
-    <div class="container-fluid">
+    <header>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark primary-color fixed-top">
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="{{ path('homepage') }}">QCMBOOST</a>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+                {% block nav_items %}
+                    <!-- Links -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('qcm_ranked_home') }}">QCM classés</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Entraînement</a>
+                        </li>
+
+                    </ul>
+                    <!-- Links -->
+
+                    <ul class="navbar-nav">
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nom d'utilisateur</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Mon profil</a>
+                                <a class="dropdown-item" href="#">Classement</a>
+                                <a class="dropdown-item" href="#">Déconnexion</a>
+                            </div>
+                        </li>
+                    </ul>
+                {% endblock %}
+            </div>
+            <!-- Collapsible content -->
+
+        </nav>
+        <!--/.Navbar-->
+    </header>
+
+    <div class="container-fluid" id="mainContainer">
         {% block body %}
         {% endblock %}
     </div>
