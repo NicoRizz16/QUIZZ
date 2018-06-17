@@ -41,3 +41,14 @@
     </p>
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            {% for message in app.session.flashbag.get('error') %}
+                toastr.error('{{ message }}');
+            {% endfor %}
+        });
+    </script>
+{% endblock %}

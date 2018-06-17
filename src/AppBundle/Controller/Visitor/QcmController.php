@@ -35,7 +35,7 @@ class QcmController extends Controller
 
         if(!isset($qcmID)){ // Si pas de qcm en session => Alors jouer un nouveau qcm
 
-            if(true){ // Si il reste des qcm à faire pour l'utilisateur aujourd'hui  HORS TEST : $user->isRankedQcmLeftToday()
+            if($user->isRankedQcmLeftToday()){ // Si il reste des qcm à faire pour l'utilisateur aujourd'hui
                 // Générer 1 qcm aléatoirement parmi la base
                 $qcm = $this->getDoctrine()->getManager()->getRepository('AppBundle:Qcm')->getOneRandomPublishedQcm();
                 // Stocker qcm en session avec datetime du lancement
@@ -45,7 +45,8 @@ class QcmController extends Controller
                 return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => false, 'countDown' => $qcm->getCountDown()));
             } else {
                 // erreur => Plus de QCM aujourd'hui, revenir demain
-                return $this->render('visitor/qcm/no_more_ranked_qcm_left.html.twig');
+                $this->addFlash('error', 'Vous avez déjà effectué tous vos QCM classés du jour, revenez demain !');
+                return $this->redirectToRoute('qcm_ranked_home');
             }
 
         } else { // Sinon traiter le QCM en session (afficher correction / reprendre avec countdown adapté)
@@ -55,12 +56,10 @@ class QcmController extends Controller
             if($timeLeft > 0){ // Si (datetime actuel - datetime de lancement du qcm) < au countdown du qcm => Afficher QCM avec countdown adapté.
                 return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => false, 'countDown' => $timeLeft));
             } else { // Afficher la correction directement, suppression du qcm en session, traitement du gain de classement
-                $this->correctRankedQcm($request);
-                return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => true, 'answerA' => false, 'answerB' => false, 'answerC' => false, 'answerD' => false, 'answerE' => false));
+                $score = $this->correctRankedQcm($request);
+                return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => true, 'answerA' => false, 'answerB' => false, 'answerC' => false, 'answerD' => false, 'answerE' => false, 'score' => $score));
             }
         }
-
-        return $this->render('visitor/qcm/qcm_ranked_play.html.twig');
     }
 
     /**
@@ -81,7 +80,7 @@ class QcmController extends Controller
         if(!$qcm){return new JsonResponse(array('message' => 'Erreur de récupération du QCM en session'), 400);}
 
         // Traitement des réponses
-        $this->correctRankedQcm($request, $answerA, $answerB, $answerC, $answerD, $answerE);
+        $score = $this->correctRankedQcm($request, $answerA, $answerB, $answerC, $answerD, $answerE);
 
         $response = $this->renderView('visitor/qcm/_qcm_correction.html.twig', array( // Génération de la vue correction
             'qcm' => $qcm,
@@ -89,7 +88,8 @@ class QcmController extends Controller
             'answerB' => $answerB,
             'answerC' => $answerC,
             'answerD' => $answerD,
-            'answerE' => $answerE
+            'answerE' => $answerE,
+            'score' => $score
         ));
 
         return new JsonResponse(array('response' => $response), 200);
@@ -107,6 +107,8 @@ class QcmController extends Controller
         $em->flush();
 
         $request->getSession()->set('qcmID', null); // Réinitialisation de la session
+
+        return $score;
     }
 
     private function updateRankedQcmLeftToday()

@@ -102,7 +102,7 @@ class User extends BaseUser
     {
         $date = new \DateTime();
         if($date->format('Ymd') == $this->getLastRankedQcmDate()->format('Ymd')){
-            if($this->getRankedQcmDoneToday() == User::MAX_RANKED_QCM_DAY){
+            if($this->getRankedQcmDoneToday() >= User::MAX_RANKED_QCM_DAY){
                 return false;
             } else {
                 return true;
