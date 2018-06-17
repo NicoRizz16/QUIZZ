@@ -101,10 +101,48 @@
         </tbody>
     </table>
 
-    <p class="text-center">
-        <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded">Lancer un autre QCM</a>
-        <a href="{{ path('qcm_ranked_home') }}" class="btn btn-outline-danger btn-rounded waves-effect">Arrêter <i class="fa fa-times ml-1"></i></a>
-    </p>
-
 </form>
 
+<p class="text-center">
+    <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded btn-sm">Lancer un autre QCM</a>
+    <a href="{{ path('qcm_ranked_home') }}" class="btn btn-outline-danger btn-rounded waves-effect btn-sm">Arrêter <i class="fa fa-times ml-1"></i></a>
+</p>
+
+
+<!--News card-->
+<div class="card mb-3 text-center hoverable rgba-green-slight">
+    <div class="card-body">
+        <!--Grid row-->
+        <div class="row">
+            {% if qcm.commentImageFile is not null %}
+                <!--Grid column-->
+                <div class="col-md-4">
+                    <!--Featured image-->
+                    <div class="view overlay">
+                            <img src="{{ absolute_url(asset(vich_uploader_asset(qcm, 'commentImageFile'))) }}" alt="Image de correction" class="img-fluid">
+                        <a href="{{ absolute_url(asset(vich_uploader_asset(qcm, 'commentImageFile'))) }}" target="_blank">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-7 text-left ml-2 mt-3 no-padding">
+                    <!--Excerpt-->
+                    <p>{{ qcm.comment }}</p>
+                </div>
+                <!--Grid column-->
+            {% else %}
+                <!--Grid column-->
+                <div class="col-md-8 offset-md-2 text-left ml-2 mt-3 no-padding">
+                    <!--Excerpt-->
+                    <p>{{ qcm.comment }}</p>
+                </div>
+                <!--Grid column-->
+            {% endif %}
+        </div>
+        <!--Grid row-->
+    </div>
+</div>
+<!--News card-->

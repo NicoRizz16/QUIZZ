@@ -43,3 +43,8 @@ th.wrongAnswerCorrectionColor + td{
 th.goodAnswerCorrectionColor + td{
     background-color: #ccffe0;
 }
+
+.no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+}
