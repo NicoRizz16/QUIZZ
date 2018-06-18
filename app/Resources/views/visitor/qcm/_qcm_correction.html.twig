@@ -115,7 +115,9 @@
         Vous n'avez pas gagné de points de classement...
     {% endif %}
     <br>
-    <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded btn-sm">Lancer un autre QCM</a>
+    {%  if isQcmLeftToday is not empty %}
+        <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded btn-sm">Lancer un autre QCM</a>
+    {% endif %}
     <a href="{{ path('qcm_ranked_home') }}" class="btn btn-outline-danger btn-rounded waves-effect btn-sm">Arrêter <i class="fa fa-times ml-1"></i></a>
 </p>
 <hr>

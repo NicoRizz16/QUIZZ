@@ -112,6 +112,17 @@ class User extends BaseUser
         }
     }
 
+    public function getExactRankedQcmNumberDoneToday()
+    {
+        $date = new \DateTime();
+        if($date->format('Ymd') == $this->getLastRankedQcmDate()->format('Ymd')){
+            return $this->getRankedQcmDoneToday();
+        } else {
+            return 0;
+        }
+    }
+
+
     /**
      * Set points
      *

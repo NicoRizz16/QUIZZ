@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Visitor;
 
 use AppBundle\Entity\Qcm;
+use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,7 +22,10 @@ class QcmController extends Controller
      */
     public function rankedQcmHomeAction(Request $request)
     {
-        return $this->render('visitor/qcm/qcm_ranked_home.html.twig');
+        $user = $this->getUser();
+        $qcmDoneToday = $user->getExactRankedQcmNumberDoneToday();
+        $qcmMax = User::MAX_RANKED_QCM_DAY;
+        return $this->render('visitor/qcm/qcm_ranked_home.html.twig', array('qcmDoneToday' => $qcmDoneToday, 'qcmMax' => $qcmMax));
     }
 
     /**
@@ -57,7 +61,9 @@ class QcmController extends Controller
                 return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => false, 'countDown' => $timeLeft));
             } else { // Afficher la correction directement, suppression du qcm en session, traitement du gain de classement
                 $score = $this->correctRankedQcm($request);
-                return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => true, 'answerA' => false, 'answerB' => false, 'answerC' => false, 'answerD' => false, 'answerE' => false, 'score' => $score));
+                // Reste-t-il des qcms à faire ajd (pour affichage du bouton lancer un autre qcm)
+                $isQcmLeftToday = $user->isRankedQcmLeftToday();
+                return $this->render(':visitor/qcm:qcm_ranked_play.html.twig', array('qcm' => $qcm, 'corrected' => true, 'answerA' => false, 'answerB' => false, 'answerC' => false, 'answerD' => false, 'answerE' => false, 'score' => $score, 'isQcmLeftToday' => $isQcmLeftToday));
             }
         }
     }
@@ -82,6 +88,9 @@ class QcmController extends Controller
         // Traitement des réponses
         $score = $this->correctRankedQcm($request, $answerA, $answerB, $answerC, $answerD, $answerE);
 
+        // Reste-t-il des qcms à faire ajd (pour affichage du bouton lancer un autre qcm)
+        $isQcmLeftToday = $this->getUser()->isRankedQcmLeftToday();
+
         $response = $this->renderView('visitor/qcm/_qcm_correction.html.twig', array( // Génération de la vue correction
             'qcm' => $qcm,
             'answerA' => $answerA,
@@ -89,7 +98,8 @@ class QcmController extends Controller
             'answerC' => $answerC,
             'answerD' => $answerD,
             'answerE' => $answerE,
-            'score' => $score
+            'score' => $score,
+            'isQcmLeftToday' => $isQcmLeftToday
         ));
 
         return new JsonResponse(array('response' => $response), 200);
