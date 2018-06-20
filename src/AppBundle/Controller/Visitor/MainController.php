@@ -9,10 +9,18 @@ use Symfony\Component\HttpFoundation\Request;
 class MainController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/accueil", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function homepageAction(Request $request)
     {
         return $this->render('visitor/main/index.html.twig');
+    }
+
+    /**
+     * @Route("/", name="landing_page")
+     */
+    public function landingPageAction(Request $request)
+    {
+        return $this->render('visitor/landing_page.html.twig');
     }
 }
