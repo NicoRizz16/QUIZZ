@@ -12,13 +12,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route("/qcm")
  * @Security("has_role('ROLE_USER')")
  */
-class QcmController extends Controller
+class RankedQcmController extends Controller
 {
     /**
-     * @Route("/classe", name="qcm_ranked_home")
+     * @Route("/qcm/classe", name="qcm_ranked_home")
      */
     public function rankedQcmHomeAction(Request $request)
     {
@@ -29,7 +28,7 @@ class QcmController extends Controller
     }
 
     /**
-     * @Route("/classe/jouer", name="qcm_ranked_play")
+     * @Route("/qcm/classe/jouer", name="qcm_ranked_play")
      */
     public function rankedQcmPlayAction(Request $request)
     {

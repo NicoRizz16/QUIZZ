@@ -21,6 +21,7 @@ class QcmRepository extends EntityRepository
     {
         $count = $this->createQueryBuilder('q')
             ->select('COUNT(q)')
+            ->where('q.published = true')
             ->getQuery()
             ->getSingleScalarResult();
 
@@ -31,5 +32,42 @@ class QcmRepository extends EntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getOneRandomPublishedQcmByCategories($categories)
+    {
+        $query = $this->createQueryBuilder('q')
+            ->join('q.categories', 'c')
+            ->select('COUNT(q)');
+
+        foreach ($categories as $category){
+            $query->orWhere($query->expr()->andX(
+                    $query->expr()->eq('c.id', $category->getId()),
+                    $query->expr()->eq('q.published', true)
+                ));
+        }
+
+        $count = $query->getQuery()->getSingleScalarResult();
+
+        $finalQuery = $this->createQueryBuilder('q')
+            ->join('q.categories', 'c');
+
+        foreach ($categories as $category){
+            $finalQuery->orWhere($query->expr()->andX(
+                $finalQuery->expr()->eq('c.id', $category->getId()),
+                $finalQuery->expr()->eq('q.published', true)
+            ));
+        }
+
+        return $finalQuery->setFirstResult(rand(0, $count - 1))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+
     }
 }

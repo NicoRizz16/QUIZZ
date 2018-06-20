@@ -7,13 +7,13 @@
             <a class="nav-link" href="{{ path('homepage') }}">Accueil
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('qcm_ranked_home') }}">QCM classés</a>
+        </li>
         <li class="nav-item active">
-            <a class="nav-link" href="{{ path('qcm_ranked_home') }}">QCM classés
+            <a class="nav-link" href="{{ path('qcm_training_launcher') }}">Entraînement
                 <span class="sr-only">(current)</span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('qcm_training_launcher') }}">Entraînement</a>
         </li>
 
     </ul>
@@ -33,12 +33,23 @@
 {% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-2 font-bold text-center">
+            QCM {{ qcmAt }}/{{ serieLength }}
+        </div>
+        <div class="col-md-8 pt-2">
+            <div class="progress" style="height: 10px">
+                <div class="progress-bar" role="progressbar" style="width: {{ ((qcmAt/serieLength)*100)|round }}%; height: 10px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top: 0;">
     <div class="col-md-8 offset-md-2 pt-2 no-padding">
         <div id="qcmContainer">
             {%  if corrected is empty %}
                 {% include 'visitor/qcm/_qcm.html.twig' with {'qcm': qcm} %}
             {% else %}
-                {% include 'visitor/qcm/_qcm_correction.html.twig' with {'qcm': qcm} %}
+                {% include 'visitor/qcm/_training_qcm_correction.html.twig' with {'qcm': qcm} %}
             {% endif %}
         </div>
     </div>
@@ -91,7 +102,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{ path('ajax_ranked_qcm_correction') }}',
+                    url: '{{ path('ajax_training_qcm_correction') }}',
                     data: 'answerA=' + answerA + '&answerB=' + answerB + '&answerC=' + answerC + '&answerD=' + answerD + '&answerE=' + answerE
                 })
                     .done(function (data, textStatus, jqXHR) {
@@ -112,25 +123,25 @@
             // COUNTDOWN
             // ================================================
             {% if corrected is empty %}
-                var initialCountDown = Number({{ qcm.countdown }});
-                var countDown = Number({{ countDown }});
-                var firstLoop = true;
-                var countDownInterval = setInterval(function () {
-                    if(firstLoop){
-                        firstLoop = false;
-                    } else {
-                        countDown = countDown - 1;
-                    }
-                    var countDownPercent = Math.round((countDown/initialCountDown)*100);
-                    $("#countDownProgressBar").css('width', countDownPercent+"%");
-                    updateCountDownColor(countDownPercent);
-                    if(countDown == 0){
-                        triggerCorrection();
-                        $('#qcmContainer').html('<h2 class="text-center pt-5">Correction du QCM en cours...</h2><div class="progress primary-color-dark">\n' +
-                            '    <div class="indeterminate"></div>\n' +
-                            '</div>');
-                    }
-                }, 1000);
+            var initialCountDown = Number({{ qcm.countdown }});
+            var countDown = Number({{ countDown }});
+            var firstLoop = true;
+            var countDownInterval = setInterval(function () {
+                if(firstLoop){
+                    firstLoop = false;
+                } else {
+                    countDown = countDown - 1;
+                }
+                var countDownPercent = Math.round((countDown/initialCountDown)*100);
+                $("#countDownProgressBar").css('width', countDownPercent+"%");
+                updateCountDownColor(countDownPercent);
+                if(countDown == 0){
+                    triggerCorrection();
+                    $('#qcmContainer').html('<h2 class="text-center pt-5">Correction du QCM en cours...</h2><div class="progress primary-color-dark">\n' +
+                        '    <div class="indeterminate"></div>\n' +
+                        '</div>');
+                }
+            }, 1000);
             {% endif %}
 
             function updateCountDownColor(countDownPercent)
