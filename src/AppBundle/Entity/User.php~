@@ -47,7 +47,6 @@ class User extends BaseUser
         parent::__construct();
         $this->setRankedQcmDoneToday(0);
         $this->setLastRankedQcmDate(new \DateTime());
-        $this->setPoints(0);
     }
 
     /**
@@ -102,7 +101,7 @@ class User extends BaseUser
     {
         $date = new \DateTime();
         if($date->format('Ymd') == $this->getLastRankedQcmDate()->format('Ymd')){
-            if($this->getRankedQcmDoneToday() >= User::MAX_RANKED_QCM_DAY){
+            if($this->getRankedQcmDoneToday() == User::MAX_RANKED_QCM_DAY){
                 return false;
             } else {
                 return true;
@@ -110,40 +109,5 @@ class User extends BaseUser
         } else {
             return true;
         }
-    }
-
-    public function getExactRankedQcmNumberDoneToday()
-    {
-        $date = new \DateTime();
-        if($date->format('Ymd') == $this->getLastRankedQcmDate()->format('Ymd')){
-            return $this->getRankedQcmDoneToday();
-        } else {
-            return 0;
-        }
-    }
-
-
-    /**
-     * Set points
-     *
-     * @param integer $points
-     *
-     * @return User
-     */
-    public function setPoints($points)
-    {
-        $this->points = $points;
-
-        return $this;
-    }
-
-    /**
-     * Get points
-     *
-     * @return integer
-     */
-    public function getPoints()
-    {
-        return $this->points;
     }
 }

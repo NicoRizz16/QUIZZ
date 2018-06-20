@@ -13,6 +13,6 @@ class MainController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('visitor/index.html.twig');
+        return $this->render('visitor/main/index.html.twig');
     }
 }
