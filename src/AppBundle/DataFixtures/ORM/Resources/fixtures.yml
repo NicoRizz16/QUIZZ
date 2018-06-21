@@ -12,6 +12,13 @@ AppBundle\Entity\User:
         role: ['ROLE_USER']
         email (unique): 'test+<numberBetween(1, 1000)>@gmail.com'
         enabled: true
+        profileImageFile: <upload(array(
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img1.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img2.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img3.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img4.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img5.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img6.jpg',))>
 
 AppBundle\Entity\Category:
     category_{1..25}:

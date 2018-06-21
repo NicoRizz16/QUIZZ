@@ -19,36 +19,6 @@
     </select>
 {% endblock choice_widget_collapsed %}
 
-{% block nav_items %}
-    <!-- Links -->
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('qcm_ranked_home') }}">QCM classés</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ path('qcm_training_launcher') }}">Entraînement
-                <span class="sr-only">(current)</span>
-            </a>
-        </li>
-
-    </ul>
-    <!-- Links -->
-
-    <ul class="navbar-nav">
-        <!-- Dropdown -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nom d'utilisateur</a>
-            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Mon profil</a>
-                <a class="dropdown-item" href="#">Classement</a>
-                <a class="dropdown-item" href="#">Déconnexion</a>
-            </div>
-        </li>
-    </ul>
-{% endblock %}
 
 {% block body %}
     <h1 class="main-title text-center"> Entraînement </h1>
