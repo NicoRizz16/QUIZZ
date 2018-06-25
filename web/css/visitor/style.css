@@ -48,3 +48,15 @@ th.goodAnswerCorrectionColor + td{
     padding-left: 0px;
     padding-right: 0px;
 }
+
+textarea.md-textarea {
+    overflow-y: scroll;
+}
+
+.bigTextArea{
+    height: 12rem!important;
+}
+
+.invalid-feedback {
+    margin-top: 15px;
+}

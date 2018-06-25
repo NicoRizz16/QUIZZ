@@ -1,0 +1,13 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+    <h1 class="main-title text-center"> Proposer un QCM </h1>
+    <hr class="my-2">
+
+    <div class="col-md-8 offset-md-2 text-center mt-5">
+        <p>Votre proposition de QCM a bien été enregistrée, merci pour votre participation !</p>
+
+        <a class="btn btn-amber btn-rounded btn-lg" href="{{ path('suggest_qcm') }}">Proposer un autre QCM</a>
+    </div>
+
+{% endblock %}
