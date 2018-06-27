@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Visitor;
 
 use AppBundle\Entity\Qcm;
+use AppBundle\Form\EditProfileType;
 use AppBundle\Form\SuggestQcmType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -63,6 +64,42 @@ class MainController extends Controller
         }
 
         return $this->render(':visitor/main:suggest_qcm.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/utilisateur/profil", name="user_profile")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function userProfileAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        return $this->render('visitor/main/profile_view.html.twig', array(
+            'user' => $user
+        ));
+    }
+
+    /**
+     * @Route("/utilisateur/profil/modifier", name="user_profile_edit")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function userProfileEditAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(EditProfileType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $userManager = $this->get('fos_user.user_manager');
+            $userManager->updateUser($user);
+
+            return $this->redirectToRoute('user_profile');
+        }
+
+        return $this->render('visitor/main/profile_edit.html.twig', array(
             'form' => $form->createView()
         ));
     }
