@@ -1,0 +1,53 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+    <h1 class="main-title text-center"> Classement </h1>
+    <hr class="my-1">
+
+    <div class="col-md-8 offset-md-2">
+        <div class="jumbotron mt-4 text-center">
+            <h5>Mon classement : {{ userRank + 1 }}{% if (userRank + 1) == 1 %}er{% else %}ème{% endif %}</h5>
+        </div>
+
+        <div class="divider-new" style="margin-bottom: 10px; margin-top: 10px;">
+            <h2 class="h2-responsive wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;">TOP 100</h2>
+        </div>
+
+        <!--Table-->
+        <table class="table table-responsive">
+
+            <!--Table head-->
+            <thead>
+            <tr>
+                <th>Classement</th>
+                <th>Pseudo</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <!--Table head-->
+
+            <!--Table body-->
+            <tbody>
+            {% set classement = 1 %}
+            {% set lastUser = top100[0] %}
+            {% for user in top100 %}
+                {% if lastUser.points != user.points %}
+                    {% set classement = classement+1 %}
+                {% endif %}
+                <tr class="{% if classement == 1 %}table-success {% elseif classement < 4 %} table-warning {% elseif classement < 11 %} table-info{% endif %}">
+                    <th scope="row">{{ classement }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.points }}</td>
+                </tr>
+                {% set lastUser = user %}
+            {% endfor %}
+            </tbody>
+            <!--Table body-->
+
+        </table>
+        <!--Table-->
+
+    </div>
+
+
+{% endblock %}

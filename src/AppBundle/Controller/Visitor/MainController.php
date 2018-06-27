@@ -103,4 +103,23 @@ class MainController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("/utilisateur/classement", name="user_rank")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function userRankAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $userRank = $em->getRepository('AppBundle:User')->getUserRank($user);
+        $top100 = $em->getRepository('AppBundle:User')->getTop100();
+
+        return $this->render('visitor/main/rank.html.twig', array(
+            'user' => $user,
+            'userRank' => $userRank,
+            'top100' => $top100
+        ));
+    }
 }

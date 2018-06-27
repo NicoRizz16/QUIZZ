@@ -20,6 +20,14 @@ AppBundle\Entity\User:
             './src/AppBundle/DataFixtures/ORM/Resources/img/img5.jpg',
             './src/AppBundle/DataFixtures/ORM/Resources/img/img6.jpg',))>
 
+    otherusers_{1..150}:
+        username (unique): <firstName()><lastName()>
+        plainPassword: 'user'
+        role: ['ROLE_USER']
+        email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
+        enabled: true
+        points: <numberBetween(1, 1000)>
+
 AppBundle\Entity\Category:
     category_{1..25}:
         name (unique): <word()>
