@@ -1,0 +1,150 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% form_theme form _self %}
+
+{%- block textarea_widget -%}
+    <textarea {{ block('widget_attributes') }} class="md-textarea">{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+
+
+{% block body %}
+    <h1 class="main-title text-center"> Proposer un QCM </h1>
+    <hr class="my-2">
+    <p class="section-description" style="margin-bottom: 40px;">Aidez-nous à créer plus de QCMs pour enrichir notre base de donnée, après contrôle et éventuelles modifications, nous publions les QCMs que vous nous proposez !</p>
+
+    <div class="col-md-8 offset-md-2">
+        {{ form_start(form) }}
+
+        <div class="md-form">
+            {{ form_row(form.question, {'attr': {'class': 'md-textarea'}}) }}
+        </div>
+
+        <div class="row mb-4">
+            <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                    <span>Image question</span>
+                    {{ form_widget(form.questionImageFile) }}
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="(Optionnel)">
+                </div>
+            </div>
+            {{ form_errors(form.questionImageFile) }}
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-sm-8">
+                <div class="md-form">
+                    {{ form_row(form.answerA) }}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 mt-md-4">
+                <fieldset class="form-group">
+                    {{ form_widget(form.veracityA) }}
+                    {{ form_label(form.veracityA) }}
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-8">
+                <div class="md-form">
+                    {{ form_row(form.answerB) }}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 mt-md-4">
+                <fieldset class="form-group">
+                    {{ form_widget(form.veracityB) }}
+                    {{ form_label(form.veracityB) }}
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-8">
+                <div class="md-form">
+                    {{ form_row(form.answerC) }}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 mt-md-4">
+                <fieldset class="form-group">
+                    {{ form_widget(form.veracityC) }}
+                    {{ form_label(form.veracityC) }}
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-8">
+                <div class="md-form">
+                    {{ form_row(form.answerD) }}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 mt-md-4">
+                <fieldset class="form-group">
+                    {{ form_widget(form.veracityD) }}
+                    {{ form_label(form.veracityD) }}
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-sm-8">
+                <div class="md-form">
+                    {{ form_row(form.answerE) }}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 mt-md-4">
+                <fieldset class="form-group">
+                    {{ form_widget(form.veracityE) }}
+                    {{ form_label(form.veracityE) }}
+                </fieldset>
+            </div>
+        </div>
+        <div class="md-form">
+            {{ form_row(form.comment, {'attr': {'class': 'md-textarea bigTextArea'}}) }}
+        </div>
+
+        <div class="row mb-4">
+            <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                    <span>Image correction</span>
+                    {{ form_widget(form.commentImageFile) }}
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="(Optionnel)">
+                </div>
+            </div>
+            {{ form_errors(form.commentImageFile) }}
+        </div>
+
+        <div class="md-form">
+            {{ form_row(form.countdown) }}
+        </div>
+
+        <div class="text-center mb-5">
+            <button type="submit" class="btn btn-amber btn-rounded btn-lg" formnovalidate>Proposer le QCM</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+
+            $(":input").focus(function () {
+                if($(this).hasClass('is-invalid')){
+                    $(this).removeClass('is-invalid');
+                    $parent = $(this).parent();
+                    $spanToRemove = $parent.find('.invalid-feedback');
+                    $spanToRemove.remove();
+                }
+            });
+
+        });
+
+    </script>
+{% endblock %}
+

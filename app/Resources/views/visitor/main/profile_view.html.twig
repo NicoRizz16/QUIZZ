@@ -1,0 +1,44 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+    <h1 class="main-title text-center"> Mon profil </h1>
+    <hr class="my-1">
+
+    <div class="col-md-8 offset-md-2">
+        <br>
+        <p class="text-center">
+            {% if user.profileImageFile is not null %}
+                <img src="{{ absolute_url(asset(vich_uploader_asset(user, 'profileImageFile'))) }}" alt="Photo de profil" class="img-fluid z-depth-1 rounded-circle" style="height: 150px;"/>
+            {% else %}
+                <img src="{{ absolute_url(asset('img/empty_profile.png')) }}" alt="Avatar vide" class="img-fluid z-depth-1 rounded-circle"  style="height: 150px;">
+            {% endif %}
+        </p>
+
+        <!--Table-->
+        <table class="table table-responsive">
+
+            <!--Table body-->
+            <tbody>
+            <tr>
+                <th scope="row">Nom d'utilisateur</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Adresse e-mail</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Points de classement</th>
+                <td>{{ user.points }}</td>
+            </tr>
+        </table>
+        <!--Table-->
+
+        <p class="text-center">
+            <a href="{{ path('user_profile_edit') }}" class="btn btn-amber btn-rounded btn-md">Modifier mon profil</a>
+        </p>
+
+    </div>
+
+
+{% endblock %}
