@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    {# ============= TITLE ============= #}
+    <title>{% block title %}TITRE{% endblock %}</title>
+
+    {# ============= STYLES ============= #}
+    {% block stylesheets %}
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        {% stylesheets filter='cssrewrite, ?scssphp'
+            'css/bootstrap.min.css'
+            'css/mdb.min.css'
+            'css/admin/style.css'
+            output='css/admin/compiled/app.css'%}
+            <link rel="stylesheet" href="{{ asset_url }}?d={{ "now"|date("dmy") }}" type="text/css" />
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+
+<body class="grey lighten-3">
+
+<!--Main Navigation-->
+<header>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+        <div class="container-fluid">
+
+            <!-- Brand -->
+            <a class="navbar-brand waves-effect" href="{{ path('admin_dashboard') }}" target="_blank">
+                <strong class="blue-text">QCMECN</strong>
+            </a>
+
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{{ path('admin_dashboard') }}">Tableau de bord</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="#" target="_blank">Questions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="{{ path('admin_categories') }}">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="#" target="_blank">Utilisateurs</a>
+                    </li>
+                </ul>
+
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="{{ path('homepage') }}" class="nav-link waves-effect">
+                            <i class="fa fa-sign-out"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-4">
+
+        {% block body %}
+        {% endblock %}
+
+    </div>
+</main>
+<!--Main layout-->
+
+<!--Footer-->
+<footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <div class="pt-4">
+        <a class="btn btn-outline-white" href="https://mdbootstrap.com/getting-started/" target="_blank" role="button">Download MDB
+            <i class="fa fa-download ml-2"></i>
+        </a>
+        <a class="btn btn-outline-white" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank" role="button">Start free tutorial
+            <i class="fa fa-graduation-cap ml-2"></i>
+        </a>
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+        <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+            <i class="fa fa-facebook mr-3"></i>
+        </a>
+
+        <a href="https://twitter.com/MDBootstrap" target="_blank">
+            <i class="fa fa-twitter mr-3"></i>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+            <i class="fa fa-youtube mr-3"></i>
+        </a>
+
+        <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+            <i class="fa fa-google-plus mr-3"></i>
+        </a>
+
+        <a href="https://dribbble.com/mdbootstrap" target="_blank">
+            <i class="fa fa-dribbble mr-3"></i>
+        </a>
+
+        <a href="https://pinterest.com/mdbootstrap" target="_blank">
+            <i class="fa fa-pinterest mr-3"></i>
+        </a>
+
+        <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+            <i class="fa fa-github mr-3"></i>
+        </a>
+
+        <a href="http://codepen.io/mdbootstrap/" target="_blank">
+            <i class="fa fa-codepen mr-3"></i>
+        </a>
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+        © 2018 Copyright:
+        <a href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank"> MDBootstrap.com </a>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
+
+    {# ============= SCRIPTS ============= #}
+    {% block javascripts %}
+
+        {% javascripts filter='?jsqueeze'
+            'js/jquery-3.1.1.min.js'
+            'js/popper.min.js'
+            'js/bootstrap.min.js'
+            'js/mdb.min.js'
+            'js/admin/main.js'
+            output='js/admin/compiled/app.js' %}
+            <script type="text/javascript" src="{{ asset_url }}?d={{ "now"|date("dmy") }}"></script>
+        {% endjavascripts %}
+
+        <script type="text/javascript">
+            // Animations initialization
+            new WOW().init();
+        </script>
+
+    {% endblock %}
+
+</body>
+
+</html>
