@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * QcmRepository
@@ -12,6 +13,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class QcmRepository extends EntityRepository
 {
+    const NUM_BY_LIST_ADMIN = 50;
+
     /**
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException
@@ -69,5 +72,110 @@ class QcmRepository extends EntityRepository
             ->getQuery()
             ->getSingleResult();
 
+    }
+
+    public function getNotPublishedQcmCount()
+    {
+        return $this->createQueryBuilder('q')
+            ->select('COUNT(q)')
+            ->where('q.published = false')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countAll()
+    {
+        return $this->createQueryBuilder('q')
+            ->select('COUNT(q)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getQcmPublishedWithoutCategoryCount()
+    {
+        return $this->createQueryBuilder('q')
+            ->select('COUNT(q)')
+            ->where('q.published = true')
+            ->andWhere('SIZE(q.categories) = 0')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getPublishedQcmWithCategoryByOrderByPage($categoryID, $orderBy, $orderSens, $page)
+    {
+        $nbPerPage = QcmRepository::NUM_BY_LIST_ADMIN;
+        $orderBy = $this->checkOrderBy($orderBy);
+        $orderSens = $this->checkOrderSens($orderSens);
+
+        $query = $this->createQueryBuilder('q')
+            ->orderBy('q.'.$orderBy, $orderSens)
+            ->join('q.categories', 'c')
+        ;
+
+        $query->where($query->expr()->andX(
+            $query->expr()->eq('c.id', $categoryID),
+            $query->expr()->eq('q.published', true)
+        ));
+
+        $query->getQuery();
+
+        $query->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, true);
+    }
+
+    public function getPublishedQcmWithoutCategoryByOrderByPage($orderBy, $orderSens, $page)
+    {
+        $nbPerPage = QcmRepository::NUM_BY_LIST_ADMIN;
+        $orderBy = $this->checkOrderBy($orderBy);
+        $orderSens = $this->checkOrderSens($orderSens);
+
+        $query = $this->createQueryBuilder('q')
+            ->orderBy('q.'.$orderBy, $orderSens)
+            ->where('q.published = true')
+            ->andWhere('SIZE(q.categories) = 0')
+            ->getQuery();
+
+        $query->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, true);
+    }
+
+    public function getNotPublishedQcmByOrderByPage($orderBy, $orderSens, $page)
+    {
+        $nbPerPage = QcmRepository::NUM_BY_LIST_ADMIN;
+        $orderBy = $this->checkOrderBy($orderBy);
+        $orderSens = $this->checkOrderSens($orderSens);
+
+        $query = $this->createQueryBuilder('q')
+            ->orderBy('q.'.$orderBy, $orderSens)
+            ->where('q.published = false')
+            ->getQuery();
+
+        $query->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, true);
+    }
+
+    private function checkOrderBy($orderBy){
+        $authorizedEntries = array('question', 'creationDate', 'id');
+        if(!in_array($orderBy, $authorizedEntries)){
+            return 'creationDate';
+        }
+        return $orderBy;
+    }
+
+    private function checkOrderSens($orderSens){
+        $authorizedEntries = array('ASC', 'DESC');
+        if(!in_array($orderSens, $authorizedEntries)){
+            return 'DESC';
+        }
+        return $orderSens;
     }
 }

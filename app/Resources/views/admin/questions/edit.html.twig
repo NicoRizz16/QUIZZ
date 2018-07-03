@@ -1,4 +1,4 @@
-{% extends 'visitor/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% form_theme form _self %}
 
@@ -7,11 +7,28 @@
 {%- endblock textarea_widget -%}
 
 
+{% block choice_widget_collapsed %}
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="mdb-select colorful-select dropdown-primary">
+        {%- if placeholder is not none -%}
+            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+        {%- endif -%}
+        {%- if preferred_choices|length > 0 -%}
+            {% set options = preferred_choices %}
+            {{- block('choice_widget_options') -}}
+            {%- if choices|length > 0 and separator is not none -%}
+                <option disabled="disabled">{{ separator }}</option>
+            {%- endif -%}
+        {%- endif -%}
+        {%- set options = choices -%}
+        {{- block('choice_widget_options') -}}
+    </select>
+{% endblock choice_widget_collapsed %}
+
 
 {% block body %}
-    <h1 class="main-title text-center"> Proposer un QCM </h1>
-    <hr class="my-2">
-    <p class="section-description" style="margin-bottom: 40px;">Aidez-nous à créer plus de QCMs pour enrichir notre base de donnée, après contrôle et éventuelles modifications, nous publions les QCMs que vous nous proposez !</p>
+
+    <h4 class="main-title text-center"> Modifier le QCM {{ qcm.id }}</h4>
+    <hr class="my-2 mb-4">
 
     <div class="col-md-8 offset-md-2">
         {{ form_start(form) }}
@@ -118,12 +135,36 @@
         <div class="md-form">
             {{ form_row(form.countdown) }}
         </div>
+        <br>
+        <div class="form-group">
+            <h6>Choisissez une ou plusieurs catégorie(s)</h6>
+            {{ form_widget(form.categories) }}
+        </div>
+        <br>
+        <fieldset class="form-group text-center">
+            {{ form_widget(form.published) }}
+            {{ form_label(form.published) }}
+        </fieldset>
 
         <div class="text-center mb-5">
-            <button type="submit" class="btn btn-amber btn-rounded btn-lg" formnovalidate>Proposer le QCM</button>
+            <button type="submit" class="btn btn-amber btn-rounded btn-lg" formnovalidate>Enregistrer</button>
         </div>
 
         {{ form_end(form) }}
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+
+            $('.mdb-select').material_select(); // Initialisation des selecteurs mdbootsrap
+
+            {% if qcm.categories|length == 0 %}
+                $('.select-dropdown').first().val(null); // Vide le selecteur de catégorie à l'affichage de la page
+            {% endif %}
+        });
+    </script>
 {% endblock %}
