@@ -1,0 +1,103 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    <h4 class="main-title text-center"> QCM ({{ totalQcm }})</h4>
+    <hr class="my-2">
+
+    <div class="row">
+        <!--Grid column-->
+        <div class="col-md-3 mb-2">
+
+            <!--Card-->
+            <div class="card danger-color">
+
+                <!--Card content-->
+                <div class="card-body text-center white-text">
+                    <h6>Erreurs rapportées</h6>
+                    <hr>
+                    0
+                </div>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-2">
+
+            <!--Card-->
+            <div class="card primary-color">
+
+                <!--Card content-->
+                <div class="card-body text-center white-text">
+                    <h6>En attente de validation</h6>
+                    <hr>
+                    {{ notPublishedQcmCount }}
+                </div>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-3 mb-2">
+
+            <!--Card-->
+            <a href="#">
+            <div class="card warning-color-dark">
+
+                <!--Card content-->
+                <div class="card-body text-center white-text">
+                    <h6>Créer un QCM</h6>
+                    <hr>
+                    <i class="fa fa-plus"></i>
+                </div>
+
+            </div>
+            <!--/.Card-->
+            </a>
+
+        </div>
+        <!--Grid column-->
+    </div>
+
+    <hr>
+
+    <div class="row">
+        {% for category in categoriesList %}
+            <div class="col-md-3 mb-4">
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <div class="card-body text-center">
+                        <h6>{{ category.name|capitalize }} ({{ category.qcms.count }})</h6>
+                        <hr>
+                        <a href="{{ path('admin_questions_list_by_category', {'category_id': category.id}) }}" class="btn btn-outline-primary waves-effect btn-sm"><i class="fa fa-eye"></i></a>
+                    </div>
+
+                </div>
+                <!--/.Card-->
+            </div>
+        {% endfor %}
+        <div class="col-md-3 mb-4">
+            <!--Card-->
+            <div class="card">
+
+                <!--Card content-->
+                <div class="card-body text-center">
+                    <h6>Sans catégorie ({{ qcmPublishedWithoutCategoryCount }})</h6>
+                    <hr>
+                    <a href="#" class="btn btn-outline-primary waves-effect btn-sm"><i class="fa fa-eye"></i></a>
+                </div>
+
+            </div>
+            <!--/.Card-->
+        </div>
+    </div>
+
+{% endblock %}
