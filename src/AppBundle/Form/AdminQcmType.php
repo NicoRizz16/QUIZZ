@@ -64,9 +64,7 @@ class AdminQcmType extends AbstractType
                 )
             ))
             ->add('veracityA', CheckboxType::class, array(
-                'label' => 'Véracité',
-                'required' => false,
-                'data' => false
+                'label' => 'Véracité'
             ))
             ->add('answerB', TextType::class, array(
                 'label' => 'Réponse B',
@@ -81,9 +79,7 @@ class AdminQcmType extends AbstractType
                 )
             ))
             ->add('veracityB', CheckboxType::class, array(
-                'label' => 'Véracité',
-                'required' => false,
-                'data' => false
+                'label' => 'Véracité'
             ))
             ->add('answerC', TextType::class, array(
                 'label' => 'Réponse C',
@@ -98,9 +94,7 @@ class AdminQcmType extends AbstractType
                 )
             ))
             ->add('veracityC', CheckboxType::class, array(
-                'label' => 'Véracité',
-                'required' => false,
-                'data' => false
+                'label' => 'Véracité'
             ))
             ->add('answerD', TextType::class, array(
                 'label' => 'Réponse D',
@@ -115,9 +109,7 @@ class AdminQcmType extends AbstractType
                 )
             ))
             ->add('veracityD', CheckboxType::class, array(
-                'label' => 'Véracité',
-                'required' => false,
-                'data' => false
+                'label' => 'Véracité'
             ))
             ->add('answerE', TextType::class, array(
                 'label' => 'Réponse E',
@@ -132,9 +124,7 @@ class AdminQcmType extends AbstractType
                 )
             ))
             ->add('veracityE', CheckboxType::class, array(
-                'label' => 'Véracité',
-                'required' => false,
-                'data' => false
+                'label' => 'Véracité'
             ))
             ->add('comment', TextareaType::class, array(
                 'label' => 'Correction',

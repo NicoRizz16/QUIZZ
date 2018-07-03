@@ -182,4 +182,32 @@ class QuestionsController extends Controller
         ));
     }
 
+    /**
+     * @Route("/admin/questions/modifier/{id}", name="admin_questions_edit", requirements={"id": "\d+"})
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function editQcmAction(Request $request, Qcm $qcm)
+    {
+        if(!$qcm) {
+            throw $this->createNotFoundException('Ce QCM n\'existe pas.');
+        }
+
+        $form = $this->createForm(AdminQcmType::class, $qcm);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($qcm);
+            $em->flush();
+
+            $this->addFlash('success', 'Le QCM a bien été modifié !');
+            return $this->redirectToRoute('admin_questions');
+        }
+
+        return $this->render('admin/questions/edit.html.twig', array(
+            'form' => $form->createView(),
+            'qcm' => $qcm
+        ));
+    }
+
 }
