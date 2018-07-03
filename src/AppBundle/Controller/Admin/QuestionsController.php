@@ -15,7 +15,7 @@ class QuestionsController extends Controller
 {
     /**
      * @Route("/admin/questions", name="admin_questions")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_MODERATOR')")
      */
     public function questionsAction(Request $request)
     {
@@ -38,6 +38,7 @@ class QuestionsController extends Controller
     /**
      * @Route("/admin/questions/categorie/{category_id}/{orderBy}/{orderSens}/{page}", name="admin_questions_list_by_category", requirements={"id": "\d+", "page": "\d+"}, defaults={"orderBy": "creationDate", "orderSens": "DESC", "page": 1})
      * @ParamConverter("category", options={"mapping": {"category_id": "id"}, "exclude": {"order_by", "order_sens", "page"}})
+     * @Security("has_role('ROLE_MODERATOR')")
      */
     public function listByCategoryAction(Request $request, Category $category, $orderBy, $orderSens, $page)
     {
@@ -59,6 +60,52 @@ class QuestionsController extends Controller
             'orderBy' => $orderBy,
             'orderSens' => $orderSens,
             'category' => $category
+        ));
+    }
+
+    /**
+     * @Route("/admin/questions/sanscat/{orderBy}/{orderSens}/{page}", name="admin_questions_list_without_category", requirements={"page": "\d+"}, defaults={"orderBy": "creationDate", "orderSens": "DESC", "page": 1})
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function listWithoutCategoryAction(Request $request, $orderBy, $orderSens, $page)
+    {
+        if($page<1){$page = 1;}
+
+        $qcmRepository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Qcm');
+        $qcmList = $qcmRepository->getPublishedQcmWithoutCategoryByOrderByPage($orderBy, $orderSens, $page);
+        $nbPageTotal = ceil(count($qcmList)/QcmRepository::NUM_BY_LIST_ADMIN);
+
+        if($page>$nbPageTotal && $page != 1){$page = $nbPageTotal;}
+
+        return $this->render('admin/questions/list_without_category.html.twig', array(
+            'qcmList' => $qcmList,
+            'nbPageTotal' => $nbPageTotal,
+            'page' => $page,
+            'orderBy' => $orderBy,
+            'orderSens' => $orderSens
+        ));
+    }
+
+    /**
+     * @Route("/admin/questions/nonpublies/{orderBy}/{orderSens}/{page}", name="admin_questions_list_not_published", requirements={"page": "\d+"}, defaults={"orderBy": "creationDate", "orderSens": "ASC", "page": 1})
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function listNotPublishedAction(Request $request, $orderBy, $orderSens, $page)
+    {
+        if($page<1){$page = 1;}
+
+        $qcmRepository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Qcm');
+        $qcmList = $qcmRepository->getNotPublishedQcmByOrderByPage($orderBy, $orderSens, $page);
+        $nbPageTotal = ceil(count($qcmList)/QcmRepository::NUM_BY_LIST_ADMIN);
+
+        if($page>$nbPageTotal && $page != 1){$page = $nbPageTotal;}
+
+        return $this->render('admin/questions/list_not_published.html.twig', array(
+            'qcmList' => $qcmList,
+            'nbPageTotal' => $nbPageTotal,
+            'page' => $page,
+            'orderBy' => $orderBy,
+            'orderSens' => $orderSens
         ));
     }
 

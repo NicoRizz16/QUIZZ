@@ -126,6 +126,43 @@ class QcmRepository extends EntityRepository
         return new Paginator($query, true);
     }
 
+    public function getPublishedQcmWithoutCategoryByOrderByPage($orderBy, $orderSens, $page)
+    {
+        $nbPerPage = QcmRepository::NUM_BY_LIST_ADMIN;
+        $orderBy = $this->checkOrderBy($orderBy);
+        $orderSens = $this->checkOrderSens($orderSens);
+
+        $query = $this->createQueryBuilder('q')
+            ->orderBy('q.'.$orderBy, $orderSens)
+            ->where('q.published = true')
+            ->andWhere('SIZE(q.categories) = 0')
+            ->getQuery();
+
+        $query->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, true);
+    }
+
+    public function getNotPublishedQcmByOrderByPage($orderBy, $orderSens, $page)
+    {
+        $nbPerPage = QcmRepository::NUM_BY_LIST_ADMIN;
+        $orderBy = $this->checkOrderBy($orderBy);
+        $orderSens = $this->checkOrderSens($orderSens);
+
+        $query = $this->createQueryBuilder('q')
+            ->orderBy('q.'.$orderBy, $orderSens)
+            ->where('q.published = false')
+            ->getQuery();
+
+        $query->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, true);
+    }
+
     private function checkOrderBy($orderBy){
         $authorizedEntries = array('question', 'creationDate', 'id');
         if(!in_array($orderBy, $authorizedEntries)){

@@ -48,11 +48,12 @@
                     <td>{{ qcm.question|capitalize }}</td>
                     <td>{{ qcm.creationDate|date('d/m/Y') }}</td>
                     <td>{{ qcm.author.username|capitalize }}</td>
-                    <td>
+                    <td style="width: 200px;">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group btn-group-sm" role="group" aria-label="First group">
                                 <a href="#"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
                                 <a href="#"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></button></a>
                             </div>
                         </div>
                     </td>

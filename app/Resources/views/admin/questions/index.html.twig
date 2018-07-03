@@ -29,6 +29,7 @@
         <div class="col-md-6 mb-2">
 
             <!--Card-->
+            <a href="{{ path('admin_questions_list_not_published') }}">
             <div class="card primary-color">
 
                 <!--Card content-->
@@ -40,6 +41,7 @@
 
             </div>
             <!--/.Card-->
+            </a>
 
         </div>
         <!--Grid column-->
@@ -92,7 +94,7 @@
                 <div class="card-body text-center">
                     <h6>Sans catégorie ({{ qcmPublishedWithoutCategoryCount }})</h6>
                     <hr>
-                    <a href="#" class="btn btn-outline-primary waves-effect btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="{{ path('admin_questions_list_without_category') }}" class="btn btn-outline-primary waves-effect btn-sm"><i class="fa fa-eye"></i></a>
                 </div>
 
             </div>
