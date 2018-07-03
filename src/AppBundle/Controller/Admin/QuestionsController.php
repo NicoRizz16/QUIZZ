@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Qcm;
+use AppBundle\Form\AdminQcmType;
 use AppBundle\Repository\QcmRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -106,6 +107,57 @@ class QuestionsController extends Controller
             'page' => $page,
             'orderBy' => $orderBy,
             'orderSens' => $orderSens
+        ));
+    }
+
+    /**
+     * @Route("/admin/questions/ajouter", name="admin_questions_add")
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function addQcmAction(Request $request)
+    {
+        $qcm = new Qcm();
+        $form = $this->createForm(AdminQcmType::class, $qcm);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $qcm->setAuthor($this->getUser());
+            $em->persist($qcm);
+            $em->flush();
+
+            // ADDFLASH
+            $this->addFlash('success', 'Le nouveau QCM a bien été enregistré !');
+            return $this->redirectToRoute('admin_questions');
+        }
+
+        return $this->render('admin/questions/add.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/admin/questions/supprimer/{id}", name="admin_questions_delete", requirements={"id": "\d+"})
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function deleteQcmAction(Request $request, Qcm $qcm)
+    {
+        $form = $this->get('form.factory')->create();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($qcm);
+            $em->flush();
+
+            $this->addFlash('success', 'Le QCM a bien été supprimé.');
+            return $this->redirectToRoute('admin_questions');
+        }
+
+        return $this->render(':admin/questions:delete.html.twig', array(
+            'form' => $form->createView(),
+            'qcm' => $qcm
         ));
     }
 
