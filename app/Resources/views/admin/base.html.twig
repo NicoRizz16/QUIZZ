@@ -29,7 +29,7 @@
 
 <!--Main Navigation-->
 <header>
-
+    {% block nav %}
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
         <div class="container-fluid">
@@ -78,6 +78,7 @@
         </div>
     </nav>
     <!-- Navbar -->
+    {% endblock %}
 
 </header>
 <!--Main Navigation-->
@@ -93,6 +94,7 @@
 </main>
 <!--Main layout-->
 
+{% block footer %}
 <!--Footer-->
 <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
 
@@ -154,6 +156,7 @@
 
 </footer>
 <!--/.Footer-->
+{% endblock %}
 
     {# ============= SCRIPTS ============= #}
     {% block javascripts %}

@@ -161,4 +161,25 @@ class QuestionsController extends Controller
         ));
     }
 
+    /**
+     * @Route("/admin/questions/previsualiser/{id}", name="admin_questions_preview", requirements={"id": "\d+"})
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function previewQcmAction(Qcm $qcm)
+    {
+        if(!$qcm) {
+            throw $this->createNotFoundException('Ce QCM n\'existe pas.');
+        }
+
+        return $this->render('admin/questions/preview.html.twig', array(
+            'qcm' => $qcm,
+            'answerA' => false,
+            'answerB' => false,
+            'answerC' => false,
+            'answerD' => false,
+            'answerE' => false
+
+        ));
+    }
+
 }
