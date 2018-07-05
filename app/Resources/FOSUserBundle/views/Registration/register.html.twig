@@ -1,0 +1,59 @@
+{% extends ":visitor:layout_sign_in_up.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="col-md-6 offset-md-3 mt-5">
+        <section class="form-elegant">
+
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-5"><strong>Inscription</strong></h3>
+                    </div>
+
+                    <!--Body-->
+                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                    <div class="md-form">
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="md-form">
+                        {{ form_row(form.username) }}
+                    </div>
+                    <div class="md-form">
+                        {{ form_row(form.plainPassword.first) }}
+                    </div>
+                    <div class="md-form">
+                        {{ form_row(form.plainPassword.second) }}
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a" value="Inscription" formnovalidate/>
+                    </div>
+                    {{ form_end(form) }}
+
+
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer mx-5 pt-3 mb-1">
+                    <p class="font-small grey-text d-flex justify-content-end">Déjà membre ? <a href="{{ path('fos_user_security_login') }}" class="blue-text ml-1"> Se connecter</a></p>
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </section>
+    </div>
+
+{% endblock fos_user_content %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+    </script>
+{% endblock %}
+

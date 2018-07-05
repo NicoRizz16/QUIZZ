@@ -1,0 +1,43 @@
+{% extends ":visitor:layout_sign_in_up.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="col-md-6 offset-md-3 mt-5">
+        <section class="form-elegant">
+
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-5"><strong>Félicitations !</strong></h3>
+                    </div>
+
+                    <p class="text-center">
+                        Votre compte a bien été créé.<br>
+                        Vous êtes maintenant membre de notre site !
+                    </p>
+
+                    <p class="text-center mt-4">
+                        <a href="{{ path('homepage') }}" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Accéder au site</a>
+                    </p>
+
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </section>
+    </div>
+
+{% endblock fos_user_content %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+    </script>
+{% endblock %}
+
