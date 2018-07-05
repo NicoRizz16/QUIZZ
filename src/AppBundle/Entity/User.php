@@ -70,6 +70,19 @@ class User extends BaseUser
      */
     private $profileImageUpdatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Quotation")
+     * @ORM\JoinColumn(name="quotation_id", referencedColumnName="id")
+     */
+    private $quotation;
+
+    /**
+     * @ORM\Column(name="quotation_updated_date", type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $quotationUpdatedAt;
+
     public function __construct()
     {
         parent::__construct();
@@ -249,5 +262,53 @@ class User extends BaseUser
     public function getProfileImageUpdatedAt()
     {
         return $this->profileImageUpdatedAt;
+    }
+
+    /**
+     * Set quotationUpdatedAt
+     *
+     * @param \DateTime $quotationUpdatedAt
+     *
+     * @return User
+     */
+    public function setQuotationUpdatedAt($quotationUpdatedAt)
+    {
+        $this->quotationUpdatedAt = $quotationUpdatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get quotationUpdatedAt
+     *
+     * @return \DateTime
+     */
+    public function getQuotationUpdatedAt()
+    {
+        return $this->quotationUpdatedAt;
+    }
+
+    /**
+     * Set quotation
+     *
+     * @param \AppBundle\Entity\Quotation $quotation
+     *
+     * @return User
+     */
+    public function setQuotation(\AppBundle\Entity\Quotation $quotation = null)
+    {
+        $this->quotation = $quotation;
+
+        return $this;
+    }
+
+    /**
+     * Get quotation
+     *
+     * @return \AppBundle\Entity\Quotation
+     */
+    public function getQuotation()
+    {
+        return $this->quotation;
     }
 }

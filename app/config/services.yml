@@ -39,3 +39,9 @@ services:
         public: true
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    app.manage_user_quotation:
+            class: AppBundle\Utils\ManageUserQuotation
+            public: true
+            arguments:
+                - "@doctrine.orm.entity_manager"

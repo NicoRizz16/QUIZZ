@@ -1,4 +1,12 @@
 {% extends 'visitor/base.html.twig' %}
 
 {% block body %}
+    <div class="jumbotron" style="padding-top: 5px; padding-bottom: 0px;">
+        <blockquote class="blockquote text-center" style="border-left: 0px; padding-bottom: 5px;">
+            <p class="mb-0" style="padding-left: 0px; padding-top: 2px; padding-bottom: 4px;">
+                <i class="fa fa-angle-double-left fa-2x" style="color: #cccccc; position: relative; top:5px;"></i> {{ user.quotation.content|capitalize }} <i class="fa fa-angle-double-right fa-2x" style="color: #cccccc; position:relative; top:5px;"></i>
+            </p>
+            <footer class="blockquote-footer mb-3"><cite title="Source Title">{{ user.quotation.author|capitalize }}</cite></footer>
+        </blockquote>
+    </div>
 {% endblock %}

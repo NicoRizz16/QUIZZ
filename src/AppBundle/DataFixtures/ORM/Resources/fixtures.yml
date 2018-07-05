@@ -65,3 +65,9 @@ AppBundle\Entity\Qcm:
             './src/AppBundle/DataFixtures/ORM/Resources/img/img4.jpg',
             './src/AppBundle/DataFixtures/ORM/Resources/img/img5.jpg',
             './src/AppBundle/DataFixtures/ORM/Resources/img/img6.jpg',))>
+
+
+AppBundle\Entity\Quotation:
+    quotation_{1..50}:
+        content: <text(60)>
+        author: <word()>

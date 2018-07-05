@@ -18,7 +18,12 @@ class MainController extends Controller
      */
     public function homepageAction(Request $request)
     {
-        return $this->render('visitor/main/index.html.twig');
+        $user = $this->getUser();
+        $this->get('app.manage_user_quotation')->manageUserQuotation($user);
+
+        return $this->render('visitor/main/index.html.twig', array(
+            'user' => $user
+        ));
     }
 
     /**
