@@ -1,0 +1,48 @@
+{% extends ":visitor:layout_sign_in_up.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="col-md-6 offset-md-3 mt-5">
+        <section class="form-elegant">
+
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-5"><strong>Définir un nouveau mot de passe</strong></h3>
+                    </div>
+
+                    <!--Body-->
+                    {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+                    <div class="md-form">
+                        {{ form_row(form.plainPassword.first) }}
+                    </div>
+                    <div class="md-form">
+                        {{ form_row(form.plainPassword.second) }}
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a" value="Modifier le mot de passe" formnovalidate/>
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </section>
+    </div>
+
+{% endblock fos_user_content %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+    </script>
+{% endblock %}
+

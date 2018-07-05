@@ -1,0 +1,35 @@
+{% extends ":visitor:layout_sign_in_up.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="col-md-6 offset-md-3 mt-5">
+        <section class="form-elegant">
+
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-5"><strong>E-mail envoyé !</strong></h3>
+                    </div>
+
+                    <p class="text-center">
+                        Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
+                    </p>
+                    <p class="text-center">
+                        Remarque : Vous ne pouvez demander un nouveau mot de passe que toutes les 2 heures.
+                    </p>
+                    <p class="text-center">
+                        Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.
+                    </p>
+
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </section>
+    </div>
+
+{% endblock fos_user_content %}
