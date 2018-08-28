@@ -73,6 +73,31 @@
         {% endblock %}
     </div>
 
+    {% block footer %}
+        <!--Footer-->
+        <footer class="page-footer text-center font-small blue-gradient mt-4 wow fadeIn">
+            {#
+            <!--Call to action-->
+            <div class="pt-2 pb-3">
+                <a class="btn btn-sm btn-outline-white" href="{{ path('homepage') }}ttps://mdbootstrap.com/getting-started/" target="_blank" role="button">Retour au site
+                    <i class="fa fa-sign-out ml-2"></i>
+                </a>
+            </div>
+            <!--/.Call to action-->
+             #}
+            <!--Copyright-->
+            <!--Copyright-->
+            <div class="footer-copyright py-3" style="height: 75px;">
+                © {{ 'now'|date('Y') }} Copyright:
+                <span style="color:white;"> QCMECN.com</span>
+            </div>
+            <!--/.Copyright-->
+            <!--/.Copyright-->
+
+        </footer>
+        <!--/.Footer-->
+    {% endblock %}
+
 
     {# ============= SCRIPTS ============= #}
     {% block javascripts %}

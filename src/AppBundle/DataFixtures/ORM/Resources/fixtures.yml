@@ -2,6 +2,13 @@ AppBundle\Entity\User:
     admin:
         username: 'admin'
         plainPassword: 'admin'
+        role: ['ROLE_ADMIN']
+        email: <email()>
+        enabled: true
+
+    superadmin:
+        username: 'superadmin'
+        plainPassword: 'superadmin'
         role: ['ROLE_SUPER_ADMIN']
         email: <email()>
         enabled: true
@@ -24,6 +31,22 @@ AppBundle\Entity\User:
         username (unique): <firstName()><lastName()>
         plainPassword: 'user'
         role: ['ROLE_USER']
+        email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
+        enabled: true
+        points: <numberBetween(1, 1000)>
+
+    moderators_{1..50}:
+        username (unique): <firstName()><lastName()>
+        plainPassword: 'user'
+        role: ['ROLE_MODERATOR']
+        email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
+        enabled: true
+        points: <numberBetween(1, 1000)>
+
+    admins_{1..50}:
+        username (unique): <firstName()><lastName()>
+        plainPassword: 'user'
+        role: ['ROLE_ADMIN']
         email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
         enabled: true
         points: <numberBetween(1, 1000)>

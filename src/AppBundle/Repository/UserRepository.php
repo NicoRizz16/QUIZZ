@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\User;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * UserRepository
@@ -12,6 +13,8 @@ use AppBundle\Entity\User;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    const NUM_BY_LIST_ADMIN = 50;
+
     public function getUserRank(User $user)
     {
         return $this->createQueryBuilder('u')
@@ -32,5 +35,20 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function getUsersByPage($page)
+    {
+        $nbPerPage = UserRepository::NUM_BY_LIST_ADMIN;
+
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.username', 'ASC')
+            ->getQuery();
+
+        $query->setFirstResult(($page-1)*$nbPerPage)
+            ->setMaxResults($nbPerPage)
+        ;
+
+        return new Paginator($query, true);
     }
 }
