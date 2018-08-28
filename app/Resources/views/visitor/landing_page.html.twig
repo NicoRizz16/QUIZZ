@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>QCMBOOST</title>
+
+  {# ============= STYLES ============= #}
+  {% block stylesheets %}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+      {% stylesheets filter='cssrewrite, ?scssphp'
+      'css/landing_page/bootstrap.min.css'
+      'css/landing_page/mdb.min.css'
+      'css/landing_page/style.min.css'
+      output='css/landing_page/compiled/app.css'%}
+    <link rel="stylesheet" href="{{ asset_url }}?d={{ "now"|date("dmy") }}" type="text/css" />
+      {% endstylesheets %}
+  {% endblock %}
+
+  <style type="text/css">
+    /* Required height of parents of the Full Page Carousel for proper displaying carousel itself */
+    html,
+    body,
+    .view {
+      height: 100%; }
+
+    /* Full Page Carousel itself*/
+    .carousel {
+      height: 100%; }
+    .carousel .carousel-inner {
+      height: 100%; }
+    .carousel .carousel-inner .carousel-item,
+    .carousel .carousel-inner .active {
+      height: 100%; }
+
+    /* Navbar animation */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.2); }
+
+    .top-nav-collapse {
+      background-color: #4285f4; }
+
+    /* Adding color to the Navbar on mobile */
+    @media only screen and (max-width: 768px) {
+      .navbar {
+        background-color: #4285f4; } }
+
+    /* Footer color for sake of consistency with Navbar */
+    .page-footer {
+      background-color: #4285f4; }
+
+
+    html,
+    body,
+    header,
+    .carousel {
+      height: 100%;
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #4285f4!important;
+            }
+        }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="{{ path('landing_page') }}">
+        <strong>QCMECN</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ path('landing_page') }}">Accueil
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('fos_user_security_login') }}">Connexion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="#" class="nav-link border border-light rounded" target="_blank">
+              <i class="fa fa-envelope mr-2"></i>Nous contacter
+            </a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!--Carousel Wrapper-->
+  <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+
+      <!--First slide-->
+      <div class="carousel-item active">
+        <div class="view">
+
+          <!--Video source-->
+          <video class="video-intro" autoplay muted loop>
+            <source src="{{ absolute_url(asset('video/baboon.m4v')) }}" type="video/mp4" />
+          </video>
+
+          <!-- Mask & flexbox options-->
+          <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            <!-- Content -->
+            <div class="text-center white-text mx-5 wow fadeIn">
+              <h1 class="mb-4">
+                <strong>Un entraînement aux ECN 100% gratuit</strong>
+              </h1>
+
+              <p class="mb-4 d-none d-md-block">
+                <strong>Générez aléatoirement des séries de questions isolées pour vos révisions.</strong>
+              </p>
+
+              <a href="{{ path('fos_user_security_login') }}" class="btn btn-outline-white btn-lg">Se connecter</a>
+              <a href="{{ path('fos_user_registration_register') }}" class="btn btn-outline-white btn-lg">S'inscrire</a>
+            </div>
+            <!-- Content -->
+
+          </div>
+          <!-- Mask & flexbox options-->
+
+        </div>
+      </div>
+      <!--/First slide-->
+
+    </div>
+    <!--/.Slides-->
+
+  </div>
+  <!--/.Carousel Wrapper-->
+
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+    {#
+      <!--Section: QCM EXAMPLE -->
+      <section class="mt-5 wow fadeIn">
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <img src="https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg" class="img-fluid z-depth-1-half" alt="">
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <!-- Main heading -->
+            <h3 class="h3 mb-3">Material Design for Bootstrap</h3>
+            <p>This template is created with Material Design for Bootstrap (
+              <strong>MDB</strong> ) framework.</p>
+            <p>Read details below to learn more about MDB.</p>
+            <!-- Main heading -->
+
+            <hr>
+
+            <p>
+              <strong>400+</strong> material UI elements,
+              <strong>600+</strong> material icons,
+              <strong>74</strong> CSS animations, SASS files, templates, tutorials and many more.
+              <strong>Free for personal and commercial use.</strong>
+            </p>
+
+            <!-- CTA -->
+            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-grey btn-md">Download
+              <i class="fa fa-download ml-1"></i>
+            </a>
+            <a target="_blank" href="https://mdbootstrap.com/components/" class="btn btn-grey btn-md">Live demo
+              <i class="fa fa-image ml-1"></i>
+            </a>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Main info-->
+
+      <hr class="mb-5">
+
+      #}
+
+      <!--Section: Qu'est ce que QCMECN ?-->
+      <section>
+
+        <h2 class="my-5 h3 text-center">Qu'est ce que QCMECN ?</h2>
+
+        <!--First row-->
+        <div class="row features-small mt-5 wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-user-graduate fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Dédié à la préparation de l'ECN</h5>
+                <p class="grey-text mt-2">Tous les QCM sont élaborés sur la base des modules préparants à l'ECN. Ce site s'adresse donc tout particulièrement aux étudiant en médecine à partir de la 3ème année.
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-random fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Séries aléatoires</h5>
+                <p class="grey-text mt-2">Grâce à notre moteur de QCM, vous pouvez générer des séries d'entraînement aléatoires et ainsi éviter les redondances !</p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-check-circle fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Correction détaillée</h5>
+                <p class="grey-text mt-2">Pour que chaque QCM soit un véritable plus dans votre apprentissage, ils sont systématiquement accompagnés d'une correction détaillée.
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-sun fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">QCM du jour</h5>
+                <p class="grey-text mt-2">Connectez vous quotidiennement pour réaliser vos 5 QCM du jour et remporter des points de classement.</p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-handshake fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2 pl-3">
+                <h5 class="feature-title font-bold mb-1">100% gratuit</h5>
+                <p class="grey-text mt-2">Une fois inscrit, vous avez accès à toutes les fonctionnalités du site, sans avoir à dépenser le moindre sous.
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+            <!--Grid column-->
+            <div class="col-xl-3 col-lg-6">
+              <!--Grid row-->
+              <div class="row">
+                <div class="col-2">
+                  <i class="fa fa-globe fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="feature-title font-bold mb-1">Communauté active</h5>
+                  <p class="grey-text mt-2">Tout membre peut suggérer des QCM qu'il a lui même créé et participer ainsi à l'évolution du site.
+                  </p>
+                </div>
+              </div>
+              <!--/Grid row-->
+            </div>
+            <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-puzzle-piece fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Mises à jour fréquentes</h5>
+                <p class="grey-text mt-2">Nous travaillons sans cesse à l'élaboration de nouveaux QCM et à l'apparition de nouvelles fonctionnalités.
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+          <!--Grid column-->
+          <div class="col-xl-3 col-lg-6">
+            <!--Grid row-->
+            <div class="row">
+              <div class="col-2">
+                <i class="fa fa-question fa-2x mb-1 indigo-text" aria-hidden="true"></i>
+              </div>
+              <div class="col-10 mb-2">
+                <h5 class="feature-title font-bold mb-1">Support technique</h5>
+                <p class="grey-text mt-2">Vous avez des questions ? Vous pouvez nous contacter à tout moment.
+                </p>
+              </div>
+            </div>
+            <!--/Grid row-->
+          </div>
+          <!--/Grid column-->
+
+        </div>
+        <!--/First row-->
+
+      </section>
+      <!--Section: More-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © {{ 'now'|date('Y') }} Copyright:
+      <span style="color:white;"> QCMECN.com</span>
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->
+
+  {# ============= SCRIPTS ============= #}
+  {% block javascripts %}
+
+    {% javascripts filter='?jsqueeze'
+    'js/landing_page/jquery-3.3.1.min.js'
+    'js/landing_page/popper.min.js'
+    'js/landing_page/bootstrap.min.js'
+    'js/landing_page/mdb.min.js'
+    output='js/landing_page/compiled/app.js' %}
+    <script type="text/javascript" src="{{ asset_url }}?d={{ "now"|date("dmy") }}"></script>
+    {% endjavascripts %}
+
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+
+  {% endblock %}
+</body>
+
+</html>

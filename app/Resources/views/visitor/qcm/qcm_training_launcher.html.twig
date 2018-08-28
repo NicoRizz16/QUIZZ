@@ -1,0 +1,80 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block choice_widget_collapsed %}
+    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="mdb-select colorful-select dropdown-primary">
+        {%- if placeholder is not none -%}
+            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+        {%- endif -%}
+        {%- if preferred_choices|length > 0 -%}
+            {% set options = preferred_choices %}
+            {{- block('choice_widget_options') -}}
+            {%- if choices|length > 0 and separator is not none -%}
+                <option disabled="disabled">{{ separator }}</option>
+            {%- endif -%}
+        {%- endif -%}
+        {%- set options = choices -%}
+        {{- block('choice_widget_options') -}}
+    </select>
+{% endblock choice_widget_collapsed %}
+
+
+{% block body %}
+    <h1 class="main-title text-center"> Entraînement </h1>
+    <hr class="my-2 mb-4">
+
+    {%  if serieLaunched is empty %}
+        <div class="col-md-8 offset-md-2">
+            {{ form_start(form) }}
+                <div class="form-group">
+                    <h6>Choisissez une ou plusieurs catégorie(s)</h6>
+                    {{ form_widget(form.categories) }}
+                </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h6>Choisissez un nombre de QCM</h6>
+                        {{ form_widget(form.serieLength) }}
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-amber btn-rounded btn-lg" formnovalidate>Lancer</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    {% else %}
+    <p class="text-center">
+        <a href="{{ path('qcm_training_play') }}" class="btn btn-amber btn-rounded btn-md">Reprendre la série en cours</a><br><br>
+        <a href="{{ path('qcm_training_reset') }}" class="btn btn-outline-danger btn-rounded waves-effect btn-md">Nouvelle série <i class="fa fa-times ml-1"></i></a>
+    </p>
+    {% endif %}
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            {% for message in app.session.flashbag.get('error') %}
+            toastr.error('{{ message }}');
+            {% endfor %}
+
+            $('.mdb-select').material_select(); // Initialisation des selecteurs mdbootsrap
+
+            $('.select-dropdown').first().val(null); // Vide le selecteur de catégorie à l'affichage de la page
+        });
+    </script>
+{% endblock %}

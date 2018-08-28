@@ -1,0 +1,159 @@
+
+<h5> {{ qcm.question }}</h5>
+{% if qcm.questionImageFile is not null %}
+    <a href="{{ absolute_url(asset(vich_uploader_asset(qcm, 'questionImageFile'))) }}" target="_blank">
+        <img src="{{ absolute_url(asset(vich_uploader_asset(qcm, 'questionImageFile'))) }}" alt="Image de question" class="img-thumbnail">
+    </a>
+{% endif %}
+<hr class="my-2">
+
+<form name="answer_qcm_form" method="post" id="answer_qcm_form_correction">
+
+    <table id="qcmTable" class="table table-striped table-responsive-md">
+        <tbody>
+        <tr>
+            <th scope="row" class="
+                                {% if ((answerA is not empty) and (qcm.veracityA is not empty)) or ((answerA is empty) and (qcm.veracityA is empty)) %}goodAnswerCorrectionColor{% endif %}
+                                {% if (answerA is not empty) and (qcm.veracityA is empty) %}wrongAnswerCorrectionColor{% endif %}
+                                {% if (answerA is empty) and (qcm.veracityA is not empty) %}forgottenAnswerCorrectionColor{% endif %}
+                            ">
+                A
+            </th>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_correctionA" name="answer_qcm_form[correctionA]" class="form-check-input" value="1" disabled {% if qcm.veracityA is not empty %}checked{% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_correctionA" class="label-table"></label>
+            </td>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_veracityA" name="answer_qcm_form[veracityA]" class="form-check-input" value="1" disabled {% if answerA is not empty %}checked{% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_veracityA" class="label-table"></label>
+            </td>
+            <td>
+                {{ qcm.answerA }}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="
+                                {% if ((answerB is not empty) and (qcm.veracityB is not empty)) or ((answerB is empty) and (qcm.veracityB is empty)) %}goodAnswerCorrectionColor{% endif %}
+                                {% if (answerB is not empty) and (qcm.veracityB is empty) %}wrongAnswerCorrectionColor{% endif %}
+                                {% if (answerB is empty) and (qcm.veracityB is not empty) %}forgottenAnswerCorrectionColor{% endif %}
+                            ">
+                B
+            </th>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_correctionB" name="answer_qcm_form[correctionB]" class="form-check-input" value="1" disabled {% if qcm.veracityB is not empty %}checked{% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_correctionB" class="label-table"></label>
+            </td>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_veracityB" name="answer_qcm_form[veracityB]" class="form-check-input" value="1" disabled {% if answerB is not empty %} checked {% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_veracityB"></label>
+            </td>
+            <td>{{ qcm.answerB }}</td>
+        </tr>
+        <tr>
+            <th scope="row" class="
+                                {% if ((answerC is not empty) and (qcm.veracityC is not empty)) or ((answerC is empty) and (qcm.veracityC is empty)) %}goodAnswerCorrectionColor{% endif %}
+                                {% if (answerC is not empty) and (qcm.veracityC is empty) %}wrongAnswerCorrectionColor{% endif %}
+                                {% if (answerC is empty) and (qcm.veracityC is not empty) %}forgottenAnswerCorrectionColor{% endif %}
+                            ">
+                C
+            </th>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_correctionC" name="answer_qcm_form[correctionC]" class="form-check-input" value="1" disabled {% if qcm.veracityC is not empty %}checked{% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_correctionC" class="label-table"></label>
+            </td>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_veracityC" name="answer_qcm_form[veracityC]" class="form-check-input" value="1" disabled {% if answerC is not empty %} checked {% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_veracityC"></label>
+            </td>
+            <td>{{ qcm.answerC }}</td>
+        </tr>
+        <tr>
+            <th scope="row" class="
+                                {% if ((answerD is not empty) and (qcm.veracityD is not empty)) or ((answerD is empty) and (qcm.veracityD is empty)) %}goodAnswerCorrectionColor{% endif %}
+                                {% if (answerD is not empty) and (qcm.veracityD is empty) %}wrongAnswerCorrectionColor{% endif %}
+                                {% if (answerD is empty) and (qcm.veracityD is not empty) %}forgottenAnswerCorrectionColor{% endif %}
+                            ">
+                D
+            </th>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_correctionD" name="answer_qcm_form[correctionD]" class="form-check-input" value="1" disabled {% if qcm.veracityD is not empty %}checked{% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_correctionD" class="label-table"></label>
+            </td>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_veracityD" name="answer_qcm_form[veracityD]" class="form-check-input" value="1" disabled {% if answerD is not empty %} checked {% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_veracityD"></label>
+            </td>
+            <td>{{ qcm.answerD }}</td>
+        </tr>
+        <tr>
+            <th scope="row" class="
+                                {% if ((answerE is not empty) and (qcm.veracityE is not empty)) or ((answerE is empty) and (qcm.veracityE is empty)) %}goodAnswerCorrectionColor{% endif %}
+                                {% if (answerE is not empty) and (qcm.veracityE is empty) %}wrongAnswerCorrectionColor{% endif %}
+                                {% if (answerE is empty) and (qcm.veracityE is not empty) %}forgottenAnswerCorrectionColor{% endif %}
+                            ">
+                E
+            </th>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_correctionE" name="answer_qcm_form[correctionE]" class="form-check-input" value="1" disabled {% if qcm.veracityE is not empty %}checked{% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_correctionE" class="label-table"></label>
+            </td>
+            <td class="checkBoxTableCell">
+                <input type="checkbox" id="answer_qcm_form_veracityE" name="answer_qcm_form[veracityE]" class="form-check-input" value="1" disabled {% if answerE is not empty %} checked {% endif %}/>
+                <label class="form-check-label" for="answer_qcm_form_veracityE"></label>
+            </td>
+            <td>{{ qcm.answerE }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</form>
+
+<p class="text-center">
+    {%  if isQcmLeftInSerie is not empty %}
+        <a href="{{ path('qcm_training_play') }}" class="btn btn-amber btn-rounded btn-sm">Continuer</a>
+        <a href="{{ path('qcm_training_launcher') }}" class="btn btn-outline-danger btn-rounded waves-effect btn-sm">Arrêter <i class="fa fa-times ml-1"></i></a>
+    {% else %}
+        <a href="{{ path('qcm_training_play') }}" class="btn btn-amber btn-rounded btn-sm">Voir ma note</a>
+    {% endif %}
+</p>
+<hr>
+<h5>Correction</h5>
+<hr>
+
+<!--News card-->
+<div class="card mb-3 text-center hoverable rgba-green-slight">
+    <div class="card-body">
+        <!--Grid row-->
+        <div class="row">
+            {% if qcm.commentImageFile is not null %}
+                <!--Grid column-->
+                <div class="col-md-4">
+                    <!--Featured image-->
+                    <div class="view overlay">
+                        <img src="{{ absolute_url(asset(vich_uploader_asset(qcm, 'commentImageFile'))) }}" alt="Image de correction" class="img-fluid">
+                        <a href="{{ absolute_url(asset(vich_uploader_asset(qcm, 'commentImageFile'))) }}" target="_blank">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-7 text-left ml-2 mt-3 no-padding">
+                    <!--Excerpt-->
+                    <p>{{ qcm.comment }}</p>
+                </div>
+                <!--Grid column-->
+            {% else %}
+                <!--Grid column-->
+                <div class="col-md-8 offset-md-2 text-left ml-2 mt-3 no-padding">
+                    <!--Excerpt-->
+                    <p>{{ qcm.comment }}</p>
+                </div>
+                <!--Grid column-->
+            {% endif %}
+        </div>
+        <!--Grid row-->
+    </div>
+</div>
+<!--News card-->

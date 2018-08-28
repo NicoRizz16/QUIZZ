@@ -1,0 +1,40 @@
+{% extends ":visitor:layout_sign_in_up.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="col-md-6 offset-md-3 mt-5">
+        <section class="form-elegant">
+
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-5"><strong>Mot de passe oublié ?</strong></h3>
+                    </div>
+
+                    <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+
+                        <div class="md-form">
+                            <label for="username">Nom d'utilisateur ou email</label>
+                            <input type="text" id="username" name="username" required="required" />
+                        </div>
+                        <br>
+                        <p class="text-center mt-4">
+                            <input type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a" value="Réinitialiser le mot de passe" />
+                        </p>
+                        <p class="text-center">
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-outline-danger btn-rounded waves-effect btn-sm">Annuler <i class="fa fa-times ml-1"></i></a>
+                        </p>
+                    </form>
+
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </section>
+    </div>
+
+{% endblock fos_user_content %}

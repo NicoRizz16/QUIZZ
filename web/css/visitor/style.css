@@ -1,0 +1,62 @@
+#mainContainer{
+    margin-top: 15px;
+}
+
+#qcmTable th, #qcmTable td{
+    padding: 0.6rem;
+}
+
+.checkBoxTableCell{
+    width: 15px;
+}
+
+.forgottenAnswerCorrectionColor{
+    background-color: #ffbb33;
+    color: white;
+    font-weight: bold;
+    width: 5px;
+    text-align: center;
+}
+
+.wrongAnswerCorrectionColor{
+    background-color: #ff4444;
+    color: white;
+    font-weight: bold;
+    width: 5px;
+    text-align: center;
+}
+
+.goodAnswerCorrectionColor{
+    background-color: #00C851;
+    color: white;
+    font-weight: bold;
+    width: 5px;
+    text-align: center;
+}
+
+th.forgottenAnswerCorrectionColor + td{
+    background-color: #ffeecc;
+}
+th.wrongAnswerCorrectionColor + td{
+    background-color: #ffcccc;
+}
+th.goodAnswerCorrectionColor + td{
+    background-color: #ccffe0;
+}
+
+.no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+textarea.md-textarea {
+    overflow-y: scroll;
+}
+
+.bigTextArea{
+    height: 12rem!important;
+}
+
+.invalid-feedback {
+    margin-top: 15px;
+}

@@ -1,0 +1,56 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+    <h1 class="main-title text-center"> Modifier profil </h1>
+    <hr class="my-1">
+
+    <div class="col-md-8 offset-md-2">
+
+        {{ form_start(form) }}
+
+        <div class="row mb-4 flex-center mt-4">
+            <div class="file-field">
+                <div class="btn btn-primary btn-sm float-left">
+                    <span>Image de profil</span>
+                    {{ form_widget(form.profileImageFile) }}
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="(Optionnel)">
+                </div>
+            </div>
+            {{ form_errors(form.profileImageFile) }}
+        </div>
+        <br>
+        <div class="md-form">
+            {{ form_row(form.username) }}
+        </div>
+
+        <div class="md-form">
+            {{ form_row(form.email) }}
+        </div>
+
+        <br>
+        <div class="divider-new">
+            <h2 class="h2-responsive wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;">Mot de passe</h2>
+        </div>
+
+        {{ form_row(form.plainPassword.first) }}
+        {{ form_row(form.plainPassword.second, {'attr': {'label': 'test'}}) }}
+
+        <br>
+        <div class="text-center">
+
+            <button type="submit" class="btn btn-amber btn-rounded btn-md" formnovalidate>Enregistrer les modifications</button>
+        </div>
+
+        {{ form_end(form) }}
+
+        <p class="text-center">
+            <a href="{{ path('user_profile') }}" class="btn btn-outline-danger btn-rounded waves-effect btn-sm">Annuler <i class="fa fa-times ml-1"></i></a>
+        </p>
+    </div>
+
+
+{% endblock %}
+
+

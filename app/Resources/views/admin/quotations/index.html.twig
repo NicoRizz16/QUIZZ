@@ -1,0 +1,64 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    <h4 class="main-title text-center"> Citations </h4>
+    <hr class="my-2">
+
+    <!--Grid column-->
+    <div class="col-md-8 offset-md-2 mb-4">
+
+        <!--Card-->
+        <div class="card">
+
+            <!--Card content-->
+            <div class="card-body">
+
+                <!-- Table  -->
+                <table class="table table-responsive">
+                    <!-- Table head -->
+                    <thead>
+                    <tr>
+                        <th class="blue lighten-4">Auteur</th>
+                        <th class="blue lighten-4">Contenu</th>
+                        <td style="text-align: right;"><a href="{{ path('admin_quotations_add') }}" class="btn btn-amber btn-sm"><i class="fa fa-plus"></i></a></td>
+                    </tr>
+                    </thead>
+                    <!-- Table head -->
+
+                    <!-- Table body -->
+                    <tbody>
+                    {% for quotation in quotationsList %}
+                        <tr>
+                            <th scope="row">{{ quotation.author|capitalize }}</th>
+                            <th scope="row">{{ quotation.content|capitalize }}</th>
+                            <td style="text-align: right;">
+                                <a href="{{ path('admin_quotations_delete', {'id': quotation.id}) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <!-- Table body -->
+                </table>
+                <!-- Table  -->
+
+            </div>
+
+        </div>
+        <!--/.Card-->
+
+    </div>
+    <!--Grid column-->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            {% for message in app.session.flashbag.get('success') %}
+            toastr.success('{{ message }}');
+            {% endfor %}
+        });
+    </script>
+{% endblock %}

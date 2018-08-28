@@ -37,6 +37,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:
@@ -59,6 +60,7 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -94,3 +96,25 @@ assetic:
       - SwiftmailerBundle
       - AsseticBundle
       - FOSUserBundle
+
+
+# VichUploader Configuration
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        qcm_images:
+            uri_prefix: uploads/images/qcm
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/qcm'
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+            namer: vich_uploader.namer_uniqid
+
+        profile_images:
+            uri_prefix: uploads/images/profile
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/profile'
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+            namer: vich_uploader.namer_uniqid

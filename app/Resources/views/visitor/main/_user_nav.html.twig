@@ -1,0 +1,21 @@
+<ul class="navbar-nav">
+    <li class="nav-item avatar dropdown">
+        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {% if user.profileImageFile is not null %}
+                <img src="{{ absolute_url(asset(vich_uploader_asset(user, 'profileImageFile'))) }}" alt="Photo de profil" class="rounded-circle z-depth-0 mr-2"/> {{ user.username }} <i class="fa fa-caret-down"></i>
+            {% else %}
+                <img src="{{ absolute_url(asset('img/empty_profile.png')) }}" alt="Avatar vide" class="rounded-circle z-depth-0 mr-2"> {{ user.username }} <i class="fa fa-caret-down"></i>
+            {% endif %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-5">
+            <a class="dropdown-item" href="{{ path('user_profile') }}">Mon profil</a>
+            <a class="dropdown-item" href="{{ path('user_rank') }}">Classement</a>
+            {% if is_granted('ROLE_MODERATOR') %}
+            <a class="dropdown-item" href="{{ path('admin_dashboard') }}">Espace admin</a>
+            {% else %}
+            <a class="dropdown-item" href="{{ path('suggest_qcm') }}">Proposer un QCM</a>
+            {% endif %}
+            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        </div>
+    </li>
+</ul>

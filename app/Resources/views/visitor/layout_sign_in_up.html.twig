@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {# LOGO <link rel="icon" type="image/png" href="{{ absolute_url(asset('img/logo.jpg')) }}" /> #}
+
+    {# ============= TITLE ============= #}
+    <title>{% block title %}TITRE{% endblock %}</title>
+
+    {# ============= STYLES ============= #}
+    {% block stylesheets %}
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        {% stylesheets filter='cssrewrite, ?scssphp'
+            'css/bootstrap.min.css'
+            'css/mdb.min.css'
+            'css/visitor/style.css'
+            output='css/visitor/compiled/app.css'%}
+            <link rel="stylesheet" href="{{ asset_url }}?d={{ "now"|date("dmy") }}" type="text/css" />
+        {% endstylesheets %}
+    {% endblock %}
+
+</head>
+
+<body style="background-color: #86a8df">
+
+<div class="container-fluid">
+    {% block fos_user_content  %}
+    {% endblock %}
+</div>
+
+
+{# ============= SCRIPTS ============= #}
+{% block javascripts %}
+
+    {% javascripts filter='?jsqueeze'
+        'js/jquery-3.1.1.min.js'
+        'js/popper.min.js'
+        'js/bootstrap.min.js'
+        'js/mdb.min.js'
+        'js/visitor/main.js'
+        output='js/visitor/compiled/app.js' %}
+        <script type="text/javascript" src="{{ asset_url }}?d={{ "now"|date("dmy") }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+</body>
+</html>

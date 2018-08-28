@@ -1,0 +1,96 @@
+AppBundle\Entity\User:
+    admin:
+        username: 'admin'
+        plainPassword: 'admin'
+        role: ['ROLE_ADMIN']
+        email: <email()>
+        enabled: true
+
+    superadmin:
+        username: 'superadmin'
+        plainPassword: 'superadmin'
+        role: ['ROLE_SUPER_ADMIN']
+        email: <email()>
+        enabled: true
+
+    user:
+        username (unique): 'user'
+        plainPassword: 'user'
+        role: ['ROLE_USER']
+        email (unique): 'test+<numberBetween(1, 1000)>@gmail.com'
+        enabled: true
+        profileImageFile: <upload(array(
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img1.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img2.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img3.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img4.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img5.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img6.jpg',))>
+
+    otherusers_{1..150}:
+        username (unique): <firstName()><lastName()>
+        plainPassword: 'user'
+        role: ['ROLE_USER']
+        email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
+        enabled: true
+        points: <numberBetween(1, 1000)>
+
+    moderators_{1..50}:
+        username (unique): <firstName()><lastName()>
+        plainPassword: 'user'
+        role: ['ROLE_MODERATOR']
+        email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
+        enabled: true
+        points: <numberBetween(1, 1000)>
+
+    admins_{1..50}:
+        username (unique): <firstName()><lastName()>
+        plainPassword: 'user'
+        role: ['ROLE_ADMIN']
+        email (unique): 'nicolas.rizzon+<numberBetween(1, 100000)>@gmail.com'
+        enabled: true
+        points: <numberBetween(1, 1000)>
+
+AppBundle\Entity\Category:
+    category_{1..25}:
+        name (unique): <word()>
+
+AppBundle\Entity\Qcm:
+    qcm_{1..100}:
+        creationDate: <dateTimeBetween('-200 days', 'now')>
+        author: '@admin'
+        question: <text(40)>
+        answerA: <text(20)>
+        answerB: <text(20)>
+        answerC: <text(20)>
+        answerD: <text(20)>
+        answerE: <text(20)>
+        veracityA: true
+        veracityB: <boolean(50)>
+        veracityC: <boolean(50)>
+        veracityD: <boolean(50)>
+        veracityE: <boolean(50)>
+        comment: <text(300)>
+        published: true
+        countdown: <numberBetween(60, 100)>
+        categories: ['@category_*']
+        questionImageFile: <upload(array(
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img1.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img2.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img3.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img4.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img5.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img6.jpg',))>
+        commentImageFile: <upload(array(
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img1.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img2.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img3.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img4.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img5.jpg',
+            './src/AppBundle/DataFixtures/ORM/Resources/img/img6.jpg',))>
+
+
+AppBundle\Entity\Quotation:
+    quotation_{1..50}:
+        content: <text(60)>
+        author: <word()>

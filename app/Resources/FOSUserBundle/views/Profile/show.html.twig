@@ -1,0 +1,33 @@
+{% extends ":visitor:layout_sign_in_up.html.twig" %}
+
+{% block fos_user_content %}
+
+    <div class="col-md-6 offset-md-3 mt-5">
+        <section class="form-elegant">
+
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="dark-grey-text mb-5"><strong>Mot de passe enregistré !</strong></h3>
+                    </div>
+
+                    <p class="text-center">
+                        Le mot de passe a été réinitialisé avec succès.
+                    </p>
+                    <br>
+                    <p class="text-center">
+                        <a href="{{ path('homepage') }}" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Accéder au site</a>
+                    </p>
+
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </section>
+    </div>
+
+{% endblock fos_user_content %}

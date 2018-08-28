@@ -33,3 +33,15 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    app.calculate_qcm_score:
+        class: AppBundle\Utils\CalculateQcmScore
+        public: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    app.manage_user_quotation:
+            class: AppBundle\Utils\ManageUserQuotation
+            public: true
+            arguments:
+                - "@doctrine.orm.entity_manager"

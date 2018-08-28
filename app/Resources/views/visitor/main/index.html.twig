@@ -1,0 +1,26 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron" style="padding-top: 5px; padding-bottom: 0px;">
+        <blockquote class="blockquote text-center" style="border-left: 0px; padding-bottom: 5px;">
+            <p class="mb-0" style="padding-left: 0px; padding-top: 2px; padding-bottom: 4px;">
+                <i class="fa fa-angle-double-left fa-2x" style="color: #cccccc; position: relative; top:5px;"></i> {{ user.quotation.content|capitalize }} <i class="fa fa-angle-double-right fa-2x" style="color: #cccccc; position:relative; top:5px;"></i>
+            </p>
+            <footer class="blockquote-footer mb-3"><cite title="Source Title">{{ user.quotation.author|capitalize }}</cite></footer>
+        </blockquote>
+    </div>
+    <div class="jumbotron">
+        <p>
+            Bonjour cher utilisateur,<br><br>
+            Notre site est en plein développement, de nombreuses fonctionalités sont encore à venir :<br>
+            - Formulaire de contact<br>
+            - Faire remonter une erreur sur un QCM<br>
+            - Visualiser le profil d'autres utilisateurs<br>
+            ...<br><br>
+            Le site venant de voir le jour, le contenu est encore pauvre, aussi nous t'invitions à nous aider en <a href="{{ path('suggest_qcm') }}">nous suggérant des QCM</a>.<br>
+            Ce site étant entièrement gratuit, il est à batir sur un modèle participatif !<br><br>
+            Nous te tiendrons informé des évolutions du site ici même.<br>
+            Enjoy :)
+        </p>
+    </div>
+{% endblock %}
