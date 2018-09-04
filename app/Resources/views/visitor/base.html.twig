@@ -9,7 +9,7 @@
     {# LOGO <link rel="icon" type="image/png" href="{{ absolute_url(asset('img/logo.jpg')) }}" /> #}
 
     {# ============= TITLE ============= #}
-    <title>{% block title %}TITRE{% endblock %}</title>
+    <title>{% block title %}QCMECN{% endblock %}</title>
 
     {# ============= STYLES ============= #}
     {% block stylesheets %}
@@ -50,12 +50,13 @@
                         <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('qcm_ranked_home') }}">QCM du jour</a>
+                        <a class="nav-link" href="{{ path('qcm_ranked_home') }}">Questions du jour</a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('qcm_training_launcher') }}">Entraînement</a>
                     </li>
-
+                    {% endif %}
                 </ul>
                 <!-- Links -->
 
@@ -75,7 +76,7 @@
 
     {% block footer %}
         <!--Footer-->
-        <footer class="page-footer text-center font-small blue-gradient mt-4 wow fadeIn">
+        <footer class="page-footer text-center font-small blue-gradient mt-4 wow fadeIn" style="padding-top: 0px;">
             {#
             <!--Call to action-->
             <div class="pt-2 pb-3">

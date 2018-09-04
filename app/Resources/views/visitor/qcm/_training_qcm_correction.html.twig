@@ -141,14 +141,14 @@
                 <!--Grid column-->
                 <div class="col-md-7 text-left ml-2 mt-3 no-padding">
                     <!--Excerpt-->
-                    <p>{{ qcm.comment }}</p>
+                    <p>{{ qcm.comment|nl2br }}</p>
                 </div>
                 <!--Grid column-->
             {% else %}
                 <!--Grid column-->
                 <div class="col-md-8 offset-md-2 text-left ml-2 mt-3 no-padding">
                     <!--Excerpt-->
-                    <p>{{ qcm.comment }}</p>
+                    <p>{{ qcm.comment|nl2br }}</p>
                 </div>
                 <!--Grid column-->
             {% endif %}

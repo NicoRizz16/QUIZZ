@@ -1,12 +1,12 @@
 {% extends 'visitor/base.html.twig' %}
 
 {% block body %}
-    <h1 class="main-title text-center"> Classement </h1>
+    <h1 class="main-title text-center"> Top assiduité </h1>
     <hr class="my-1">
 
     <div class="col-md-8 offset-md-2">
         <div class="jumbotron mt-4 text-center">
-            <h5>Mon classement : {{ userRank + 1 }}{% if (userRank + 1) == 1 %}er{% else %}ème{% endif %}</h5>
+            <h5>Mon rang : {{ userRank + 1 }}{% if (userRank + 1) == 1 %}er{% else %}ème{% endif %}</h5>
         </div>
 
         <div class="divider-new" style="margin-bottom: 10px; margin-top: 10px;">

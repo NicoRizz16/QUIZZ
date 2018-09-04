@@ -2,9 +2,9 @@
 
 
 {% block body %}
-    <h1 class="main-title text-center"> QCM du jour </h1>
+    <h1 class="main-title text-center"> Questions du jour </h1>
     <hr class="my-2">
-    <p class="section-description">Effectuez tous les jours {{ qcmMax }} QCM et gagnez des points pour progresser dans le classement !</p>
+    <p class="section-description">Effectue tous les jours {{ qcmMax }} QCM et gagne des points d'assiduité !</p>
     <h3 class="text-center font-bold">
         {{ qcmDoneToday }} / {{ qcmMax }}
     </h3>
@@ -18,10 +18,13 @@
         {% if not (qcmDoneToday >= qcmMax) %}
             <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded btn-lg">Lancer un QCM</a>
         {% else %}
-            Vous avez réalisé tous vos QCMs classés du jour. Revenez demain pour plus de QCM ! :)
+            Tu as réalisé tout tes QCM du jour. Reviens demain pour continuer l'entraînement ! :)
         {% endif %}
     </p>
 
+    <br>
+    <br>
+    <br>
     <br>
     <br>
     <br>

@@ -9,7 +9,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-5">
             <a class="dropdown-item" href="{{ path('user_profile') }}">Mon profil</a>
-            <a class="dropdown-item" href="{{ path('user_rank') }}">Classement</a>
+            <a class="dropdown-item" href="{{ path('user_rank') }}">Top assiduité</a>
             {% if is_granted('ROLE_MODERATOR') %}
             <a class="dropdown-item" href="{{ path('admin_dashboard') }}">Espace admin</a>
             {% else %}
