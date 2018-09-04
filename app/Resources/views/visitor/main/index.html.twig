@@ -11,16 +11,23 @@
     </div>
     <div class="jumbotron">
         <p>
-            Bonjour cher utilisateur,<br><br>
-            Notre site est en plein développement, de nombreuses fonctionalités sont encore à venir :<br>
-            - Formulaire de contact<br>
+            Bonjour {{ user.username|capitalize }},<br><br>
+
+            Ce site te permet de t'exercer sur 5 questions isolées balayant tout le programme de l'ECN chaque jour, pas une de plus. <br>
+            C'est donc un entraînement peu chronophage mais destiné à être réalisé quotidiennement, une petite routine qui peut faire la différence sur le long terme :)
+            <br><br>
+
+            Le site venant de voir le jour, le contenu est encore à enrichir afin d'éviter les redondances dans les questions quotidiennes, aussi nous t'invitions à nous aider en <a href="{{ path('suggest_qcm') }}">nous suggérant des QCM</a>.<br>
+            Ce site étant entièrement gratuit, la participation de chaque membre à l'enrichissement de son contenu est la bienvenue !<br>
+            De plus, créer un QCM est un bon exercice d'apprentissage, n'hésite pas à le partager !<br><br>
+
+            Notre site est en plein développement, d'autres fonctionalités sont encore à venir :<br>
             - Faire remonter une erreur sur un QCM<br>
+            - Formulaire de contact<br>
             - Visualiser le profil d'autres utilisateurs<br>
             ...<br><br>
-            Le site venant de voir le jour, le contenu est encore pauvre, aussi nous t'invitions à nous aider en <a href="{{ path('suggest_qcm') }}">nous suggérant des QCM</a>.<br>
-            Ce site étant entièrement gratuit, il est à batir sur un modèle participatif !<br><br>
-            Nous te tiendrons informé des évolutions du site ici même.<br>
-            Enjoy :)
+
+            Bonne révisions :)
         </p>
     </div>
 {% endblock %}

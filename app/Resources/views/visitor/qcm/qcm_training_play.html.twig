@@ -21,6 +21,7 @@
             {% endif %}
         </div>
     </div>
+    <br><br>
 {% endblock %}
 
 {% block javascripts %}
@@ -62,7 +63,7 @@
                 triggerCorrection();
                 $('#qcmContainer').html('<h2 class="text-center pt-5">Correction du QCM en cours...</h2><div class="progress primary-color-dark">\n' +
                     '    <div class="indeterminate"></div>\n' +
-                    '</div>');
+                    '</div><br><br><br><br><br><br><br><br><br><br><br><br><br>');
             });
 
             function triggerCorrection(){
@@ -107,7 +108,7 @@
                     triggerCorrection();
                     $('#qcmContainer').html('<h2 class="text-center pt-5">Correction du QCM en cours...</h2><div class="progress primary-color-dark">\n' +
                         '    <div class="indeterminate"></div>\n' +
-                        '</div>');
+                        '</div><br><br><br><br><br><br><br><br><br><br><br><br><br>');
                 }
             }, 1000);
             {% endif %}

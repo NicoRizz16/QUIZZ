@@ -25,6 +25,7 @@ class TrainingQcmController extends Controller
 {
     /**
      * @Route("/qcm/entrainement", name="qcm_training_launcher")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function trainingQcmLauncherAction(Request $request)
     {
