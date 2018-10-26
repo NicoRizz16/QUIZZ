@@ -47,16 +47,17 @@
                 <!-- Links -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+                        <a class="nav-link" href="{{ path('presentation') }}">Présentation</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('qcm_ranked_home') }}">Questions du jour</a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('qcm_training_launcher') }}">Entraînement</a>
                     </li>
-                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('ressources') }}">Ressources</a>
+                    </li>
                 </ul>
                 <!-- Links -->
 

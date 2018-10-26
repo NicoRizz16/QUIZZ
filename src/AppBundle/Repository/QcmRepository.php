@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -97,6 +98,17 @@ class QcmRepository extends EntityRepository
             ->select('COUNT(q)')
             ->where('q.published = true')
             ->andWhere('SIZE(q.categories) = 0')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getQcmPublishedForAuthorCount(User $user)
+    {
+        return $this->createQueryBuilder('q')
+            ->select('COUNT(q)')
+            ->where('q.published = true')
+            ->andWhere('q.author = :userID')
+            ->setParameter('userID', $user->getId())
             ->getQuery()
             ->getSingleScalarResult();
     }

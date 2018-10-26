@@ -43,6 +43,20 @@
                 $(this).is(":checked") ? answerE = true : answerE = false;
             });
 
+            $(".propositionTd").click(function (e) {
+                e.preventDefault();
+                $correspondingCheckBox = $(this).prev().find(':checkbox');
+                if($correspondingCheckBox.is(":checked")){
+                    $correspondingCheckBox.prop('checked', false);
+                } else {
+                    $correspondingCheckBox.prop('checked', true);
+                }
+            });
+
+            $('.propositionTd').hover(function() {
+                $(this).css('cursor','pointer');
+            });
+
             // ================================================
             // REQUETE AJAX CORRECTION
             // ================================================

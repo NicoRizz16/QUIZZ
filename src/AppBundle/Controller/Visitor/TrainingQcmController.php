@@ -25,10 +25,18 @@ class TrainingQcmController extends Controller
 {
     /**
      * @Route("/qcm/entrainement", name="qcm_training_launcher")
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function trainingQcmLauncherAction(Request $request)
     {
+        $user = $this->getUser();
+        $unlockTrainingMode =  User::UNLOCK_TRAINING_MODE;
+        if($user->getPoints() < $unlockTrainingMode){
+            return $this->render('visitor/qcm/qcm_training_launcher_locked.html.twig', array(
+                'user' => $user,
+                'unlockTrainingMode' => $unlockTrainingMode
+            ));
+        }
+
         $form = $this->createForm(TrainingQcmLauncherType::class);
 
         $form->handleRequest($request);

@@ -1,7 +1,7 @@
 {% extends 'visitor/base.html.twig' %}
 
 {% block body %}
-    <h1 class="main-title text-center"> Mon profil </h1>
+    <h1 class="main-title text-center"> Profil de {{ user.username }} </h1>
     <hr class="my-1">
 
     <div class="col-md-8 offset-md-2">
@@ -24,10 +24,6 @@
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
-                <th scope="row">Adresse e-mail</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
                 <th scope="row">Points d'assiduité</th>
                 <td>{{ user.points }}</td>
             </tr>
@@ -39,7 +35,7 @@
         <!--Table-->
 
         <p class="text-center">
-            <a href="{{ path('user_profile_edit') }}" class="btn btn-amber btn-rounded btn-md">Modifier mon profil</a>
+            <a href="{{ path('user_rank') }}" class="btn btn-amber btn-rounded btn-md">Retour au Top assiduité</a>
         </p>
 
     </div>

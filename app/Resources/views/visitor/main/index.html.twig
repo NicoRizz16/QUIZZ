@@ -1,7 +1,9 @@
 {% extends 'visitor/base.html.twig' %}
 
 {% block body %}
-    <div class="jumbotron" style="padding-top: 5px; padding-bottom: 0px;">
+    <div class="jumbotron" style="padding-top: 15px; padding-bottom: 0px;">
+        <h5>Citation du jour</h5>
+        <hr>
         <blockquote class="blockquote text-center" style="border-left: 0px; padding-bottom: 5px;">
             <p class="mb-0" style="padding-left: 0px; padding-top: 2px; padding-bottom: 4px;">
                 <i class="fa fa-angle-double-left fa-2x" style="color: #cccccc; position: relative; top:5px;"></i> {{ user.quotation.content|capitalize }} <i class="fa fa-angle-double-right fa-2x" style="color: #cccccc; position:relative; top:5px;"></i>
@@ -10,24 +12,68 @@
         </blockquote>
     </div>
     <div class="jumbotron">
-        <p>
-            Bonjour {{ user.username|capitalize }},<br><br>
-
-            Ce site te permet de t'exercer sur 5 questions isolées balayant tout le programme de l'ECN chaque jour, pas une de plus. <br>
-            C'est donc un entraînement peu chronophage mais destiné à être réalisé quotidiennement, une petite routine qui peut faire la différence sur le long terme :)
-            <br><br>
-
-            Le site venant de voir le jour, le contenu est encore à enrichir afin d'éviter les redondances dans les questions quotidiennes, aussi nous t'invitions à nous aider en <a href="{{ path('suggest_qcm') }}">nous suggérant des QCM</a>.<br>
-            Ce site étant entièrement gratuit, la participation de chaque membre à l'enrichissement de son contenu est la bienvenue !<br>
-            De plus, créer un QCM est un bon exercice d'apprentissage, n'hésite pas à le partager !<br><br>
-
-            Notre site est en plein développement, d'autres fonctionalités sont encore à venir :<br>
-            - Faire remonter une erreur sur un QCM<br>
-            - Formulaire de contact<br>
-            - Visualiser le profil d'autres utilisateurs<br>
-            ...<br><br>
-
-            Bonne révisions :)
-        </p>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4 class="mt-3 mb-sm-4">Questions du jour</h4>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-center font-bold">
+                    {{ qcmDoneToday }} / {{ qcmMax }} réalisées
+                </h5>
+                <div class="progress" style="height: 15px">
+                    <div id="countDownProgressBar" class="progress-bar {% if qcmDoneToday >= qcmMax %}bg-success{% endif %}" role="progressbar" style="width: {{ ((qcmDoneToday/qcmMax)*100)|round }}%; height: 15px" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                {% if not (qcmDoneToday >= qcmMax) %}
+                    <a href="{{ path('qcm_ranked_play') }}" class="btn btn-amber btn-rounded btn-lg">Lancer <i class="fa fa-fighter-jet" aria-hidden="true"></i></a>
+                {% else %}
+                    <a href="{{ path('qcm_ranked_home') }}" class="btn btn-amber btn-rounded btn-lg disabled">Lancer <i class="fa fa-fighter-jet" aria-hidden="true"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4 class="mt-3 mb-sm-4">Mode entraînement</h4>
+            </div>
+            <div class="col-md-4">
+                <h5 class="text-center font-bold">
+                    {% if user.points < unlockTrainingMode %}
+                        {{ user.points }} / {{ unlockTrainingMode }} points
+                    {% else %}
+                        {{ unlockTrainingMode }} / {{ unlockTrainingMode }} points
+                    {% endif %}
+                </h5>
+                <div class="progress" style="height: 15px">
+                    {% if user.points < unlockTrainingMode %}
+                        <div id="countDownProgressBar" class="progress-bar" role="progressbar" style="width: {{ ((user.points/unlockTrainingMode)*100)|round }}%; height: 15px" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% else %}
+                        <div id="countDownProgressBar" class="progress-bar bg-success" role="progressbar" style="width: {{ ((unlockTrainingMode/unlockTrainingMode)*100)|round }}%; height: 15px" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                {% if user.points < unlockTrainingMode %}
+                    <a href="{{ path('qcm_training_launcher') }}" class="btn btn-amber btn-rounded btn-lg disabled">Accéder <i class="fa fa-lock" aria-hidden="true"></i></a>
+                {% else %}
+                    <a href="{{ path('qcm_training_launcher') }}" class="btn btn-amber btn-rounded btn-lg">Accéder <i class="fa fa-unlock" aria-hidden="true"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4 class="mt-3 mb-sm-4">Autres liens</h4>
+            </div>
+            <div class="col-md-4 text-center">
+                <a href="{{ path('ressources') }}" class="btn btn-amber btn-rounded btn-lg">Ressources</a>
+            </div>
+            <div class="col-md-4 text-center">
+                <a href="{{ path('presentation') }}" class="btn btn-amber btn-rounded btn-lg">Présentation</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

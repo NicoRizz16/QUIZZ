@@ -1,0 +1,30 @@
+{% extends 'visitor/base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1>Présentation</h1>
+        <hr>
+        <br>
+        <p>
+            Bonjour {{ user.username|capitalize }},<br><br>
+
+            Ce site te permet de t'exercer sur <a href="{{ path('qcm_ranked_home') }}">5 questions isolées</a>  balayant tout le programme de l'ECN quotidiennement. <br>
+            C'est donc un entraînement peu chronophage, une petite routine qui devient un vrai plus sur le long terme <i class="fa fa-smile-o" aria-hidden="true"></i>
+            <br><br>
+
+            Le <a href="{{ path('qcm_training_launcher') }}">mode entraînement</a> permet de générer des séries de QCM sur une catégorie spécifique ou plusieurs catégories selon tes besoins de révisions. Il n'y a pas
+            de limite quotidienne dans ce mode. A chaque QCM du jour répondu tu gagneras des points d'assidiuté, le mode entraînement se débloque dès les {{ unlockTrainingMode }} points atteints. Tu peux consulter le nombre de points que tu possèdes dans <a href="{{ path('user_profile') }}">ton profil</a>.<br><br>
+
+            Les <a href="{{ path('ressources') }}">ressources</a> sont triées par catégories et correspondent à des fiches / images de synthèse pouvant t'aider dans tes révisions.<br><br>
+
+            Le site venant de voir le jour, le contenu est encore à enrichir afin d'éviter les redondances dans les questions quotidiennes, aussi nous t'invitions à nous aider en <a href="{{ path('suggest_qcm') }}">nous suggérant des QCM</a>.<br>
+            Ce site étant entièrement gratuit, la participation de chaque membre à l'enrichissement de son contenu est la bienvenue !<br>
+            De plus, créer un QCM est un bon exercice d'apprentissage, n'hésite pas à le partager !<br><br>
+
+            Notre site est en plein développement et d'autres fonctionalités sont encore à venir, n'hésite pas à <a href="#">nous contacter</a> si tu as des suggestions !<br><br>
+
+            Bonnes révisions <i class="fa fa-smile-o" aria-hidden="true"></i>
+        </p>
+    </div>
+{% endblock %}

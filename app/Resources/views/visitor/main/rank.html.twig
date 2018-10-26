@@ -36,7 +36,7 @@
                 {% endif %}
                 <tr class="{% if classement == 1 %}table-success {% elseif classement < 4 %} table-warning {% elseif classement < 11 %} table-info{% endif %}">
                     <th scope="row">{{ classement }}</th>
-                    <td>{{ user.username }}</td>
+                    <td><a href="{{ path('user_consult_profile', {'id': user.id}) }}" title="Voir le profil" class="btn-link">{{ user.username }}</a></td>
                     <td>{{ user.points }}</td>
                 </tr>
                 {% set lastUser = user %}

@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User extends BaseUser
 {
     const MAX_RANKED_QCM_DAY = 5;
+    const UNLOCK_TRAINING_MODE = 500;
 
     /**
      * @ORM\Id

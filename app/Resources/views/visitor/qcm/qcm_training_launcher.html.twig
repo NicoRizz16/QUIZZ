@@ -23,14 +23,11 @@
 {% block body %}
     <h1 class="main-title text-center"> Entraînement </h1>
     <hr class="my-2 mb-4">
+    <p class="section-description">Vous pouvez ne pas choisir de catégorie, les QCM seront alors tirés aléatoirement parmi toutes les catégories.</p>
 
     {%  if serieLaunched is empty %}
         <div class="col-md-8 offset-md-2">
             {{ form_start(form) }}
-                <div class="form-group">
-                    <h6>Choisissez une ou plusieurs catégorie(s)</h6>
-                    {{ form_widget(form.categories) }}
-                </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -38,6 +35,10 @@
                         {{ form_widget(form.serieLength) }}
                     </div>
                 </div>
+            </div>
+            <div class="form-group">
+                <h6>Choisissez une ou plusieurs catégorie(s)</h6>
+                {{ form_widget(form.categories) }}
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-amber btn-rounded btn-lg" formnovalidate>Lancer</button>
@@ -51,8 +52,6 @@
     </p>
     {% endif %}
 
-
-    <br>
     <br>
     <br>
     <br>
@@ -74,7 +73,7 @@
 
             $('.mdb-select').material_select(); // Initialisation des selecteurs mdbootsrap
 
-            $('.select-dropdown').first().val(null); // Vide le selecteur de catégorie à l'affichage de la page
+            $('.select-dropdown:eq(2)').val(null); // Vide le selecteur de catégorie à l'affichage de la page
         });
     </script>
 {% endblock %}

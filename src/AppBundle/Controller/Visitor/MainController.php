@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Visitor;
 
 use AppBundle\Entity\Qcm;
+use AppBundle\Entity\User;
 use AppBundle\Form\EditProfileType;
 use AppBundle\Form\SuggestQcmType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,10 +20,32 @@ class MainController extends Controller
     public function homepageAction(Request $request)
     {
         $user = $this->getUser();
+        $qcmDoneToday = $user->getExactRankedQcmNumberDoneToday();
+        $qcmMax = User::MAX_RANKED_QCM_DAY;
+        $unlockTrainingMode =  User::UNLOCK_TRAINING_MODE;
         $this->get('app.manage_user_quotation')->manageUserQuotation($user);
 
         return $this->render('visitor/main/index.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'qcmDoneToday' => $qcmDoneToday,
+            'qcmMax' => $qcmMax,
+            'unlockTrainingMode' => $unlockTrainingMode
+        ));
+    }
+
+    /**
+     * @Route("/presentation", name="presentation")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function presentationAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        $unlockTrainingMode =  User::UNLOCK_TRAINING_MODE;
+
+        return $this->render('visitor/main/presentation.html.twig', array(
+            'user' => $user,
+            'unlockTrainingMode' => $unlockTrainingMode
         ));
     }
 
@@ -80,9 +103,29 @@ class MainController extends Controller
     public function userProfileAction(Request $request)
     {
         $user = $this->getUser();
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Qcm');
+
+        $qcmPublishedByUser = $repository->getQcmPublishedForAuthorCount($user);
 
         return $this->render('visitor/main/profile_view.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'qcmPublishedByUser' => $qcmPublishedByUser
+        ));
+    }
+
+    /**
+     * @Route("/utilisateur/voir/{id}", name="user_consult_profile", requirements={"id": "\d+"})
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function consultProfileAction(Request $request, User $user)
+    {
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Qcm');
+
+        $qcmPublishedByUser = $repository->getQcmPublishedForAuthorCount($user);
+
+        return $this->render('visitor/main/consult_profile_view.html.twig', array(
+            'user' => $user,
+            'qcmPublishedByUser' => $qcmPublishedByUser
         ));
     }
 
@@ -126,5 +169,14 @@ class MainController extends Controller
             'userRank' => $userRank,
             'top100' => $top100
         ));
+    }
+
+    /**
+     * @Route("/ressources", name="ressources")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function ressourcesAction(Request $request)
+    {
+        return $this->render('visitor/main/ressources.html.twig');
     }
 }
